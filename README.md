@@ -11,5 +11,5 @@ https://github.com/Jabidex3/DollarsBankTeamApplication
 ### Getting Started
 Clone app into desired directory  
 CD into dollars-bank  
-NPM init to install node_modules from package.json  
+NPM install to install node_modules from package.json  
 NPM start to run project  
