@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, Typography, Button, IconButton} from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
+// import MenuIcon from '@material-ui/icons/Menu';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -30,7 +30,7 @@ const MenuBar = (props) => {
 						<MenuIcon />
 					</IconButton> */}
 					<Typography variant="h6" className={classes.title}>
-						$ Dollars Bank $
+						Dollars Bank
 					</Typography>
 					<Button color="inherit">Login</Button>
 				</Toolbar>

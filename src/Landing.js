@@ -5,7 +5,7 @@ import { Box } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
     landing: {
         backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/landing.jpg')`,
-        height: "800px",
+        height: "calc(100vh - 56px)",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
@@ -26,7 +26,7 @@ const Landing = (props) => {
 
     return (
         <Box className={classes.landing}>
-            <Box className={classes.title}>Welcome to Dollar Bank</Box>
+            <Box className={classes.title}>Welcome to Dollars Bank</Box>
         </Box>
     )
 
