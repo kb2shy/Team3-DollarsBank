@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-around",
     alignItems: "flex-end",
     backgroundColor: "#fff",
-    width: "50%",
+    width: "30%",
     height: "50%"
   },
   button: {
