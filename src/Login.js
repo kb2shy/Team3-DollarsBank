@@ -6,7 +6,7 @@ const useStyles = makeStyles(theme => ({
 
 }))
 
-const Register = (props) => {
+const Login = (props) => {
 
   const classes = useStyles();
 
@@ -15,7 +15,7 @@ const Register = (props) => {
       <Card>
         <CardContent>
           <Typography variant="h3">
-            Register
+            Login
           </Typography>
         </CardContent>
       </Card>
@@ -23,4 +23,4 @@ const Register = (props) => {
   )
 }
 
-export default Register;
+export default Login;

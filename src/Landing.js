@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Button } from "@material-ui/core";
 
+import Register from './Register';
+import Login from './Login';
+
 const useStyles = makeStyles((theme) => ({
   landing: {
     backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/landing.jpg')`,
@@ -19,14 +22,20 @@ const useStyles = makeStyles((theme) => ({
   title: {
     color: "#fff"
   },
-  buttonGroup: {
+  box__reglog: {
     opacity: "0.6",
     display: "flex",
-    justifyContent: "space-around",
-    alignItems: "flex-end",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    alignItems: "center",
     backgroundColor: "#fff",
-    width: "30%",
+    width: "50%",
     height: "50%"
+  },
+  buttonGroup: {
+    display: "flex",
+    justifyContent: "space-around",
+    width: "100%"
   },
   button: {
     color: theme.palette.secondary.dark
@@ -37,14 +46,24 @@ const Landing = (props) => {
   const classes = useStyles();
   const [selection, setSelection] = useState("register");
 
+  const displaySelection = () => {
+    if (selection === "register") {
+      return <Register />
+    } else {
+      return <Login />;
+    }
+  }
+
   console.log(selection);
   return (
     <Box className={classes.landing}>
       <Box className={classes.title}>Welcome to Dollars Bank</Box>
-
-      <Box className={classes.buttonGroup}>
-        <Button className={classes.button} onClick={() => setSelection("register")}>Register</Button>
-        <Button className={classes.button} onClick={() => setSelection("login")}>Login</Button>
+      <Box className={classes.box__reglog}>
+        {displaySelection()}
+        <Box className={classes.buttonGroup}>
+          <Button className={classes.button} onClick={() => setSelection("register")}>Register</Button>
+          <Button className={classes.button} onClick={() => setSelection("login")}>Login</Button>
+        </Box>
       </Box>
     </Box>
   )
