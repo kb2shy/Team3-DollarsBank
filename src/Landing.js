@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   title: {
     color: "#fff"
   },
-  box__reglog: {
+  reglog: {
     opacity: "0.6",
     display: "flex",
     flexDirection: "column",
@@ -31,6 +31,12 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#fff",
     width: "50%",
     height: "50%"
+  },
+  reglog__box: {
+    flexDirection: "column",
+    alignContent: "center",
+    textAlign: "center",
+    width: "100%",
   },
   buttonGroup: {
     display: "flex",
@@ -58,8 +64,10 @@ const Landing = (props) => {
   return (
     <Box className={classes.landing}>
       <Box className={classes.title}>Welcome to Dollars Bank</Box>
-      <Box className={classes.box__reglog}>
-        {displaySelection()}
+      <Box className={classes.reglog}>
+        <Box className={classes.reglog__box}>
+          {displaySelection()}
+        </Box>
         <Box className={classes.buttonGroup}>
           <Button className={classes.button} onClick={() => setSelection("register")}>Register</Button>
           <Button className={classes.button} onClick={() => setSelection("login")}>Login</Button>
