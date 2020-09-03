@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
     alignContent: "center",
     textAlign: "center",
     width: "100%",
+    maxWidth: "400px"
   },
   buttonGroup: {
     display: "flex",
@@ -51,16 +52,44 @@ const useStyles = makeStyles((theme) => ({
 const Landing = (props) => {
   const classes = useStyles();
   const [selection, setSelection] = useState("register");
+  const [userEmail, setUserEmail] = useState("");
+  const [userPassword, setUserPassword] = useState("");
+  const [checkPassword, setCheckPassword] = useState("");
+
+  const handleOnChange = (prop) => (e) => {
+    switch (prop) {
+      case "userEmail":
+        return setUserEmail(e.target.value);
+      case "userPassword":
+        return setUserPassword(e.target.value);
+      case "checkPassword":
+        return setCheckPassword(e.target.value);
+      default:
+        return
+    }
+  };
+
+  const clearFields = () => {
+    setUserEmail("");
+    setUserPassword("");
+    setCheckPassword("");
+  }
 
   const displaySelection = () => {
     if (selection === "register") {
-      return <Register />
+      return <Register
+        userEmail={userEmail}
+        userPassword={userPassword}
+        checkPassword={checkPassword}
+        handleOnChange={handleOnChange} />
     } else {
-      return <Login />;
+      return <Login
+        userEmail={userEmail}
+        userPassword={userPassword}
+        handleOnChange={handleOnChange} />;
     }
   }
 
-  console.log(selection);
   return (
     <Box className={classes.landing}>
       <Box className={classes.title}>Welcome to Dollars Bank</Box>
@@ -69,8 +98,8 @@ const Landing = (props) => {
           {displaySelection()}
         </Box>
         <Box className={classes.buttonGroup}>
-          <Button className={classes.button} onClick={() => setSelection("register")}>Register</Button>
-          <Button className={classes.button} onClick={() => setSelection("login")}>Login</Button>
+          <Button className={classes.button} onClick={() => {clearFields(); setSelection("register")}}>Register</Button>
+          <Button className={classes.button} onClick={() => {clearFields(); setSelection("login")}}>Login</Button>
         </Box>
       </Box>
     </Box>
