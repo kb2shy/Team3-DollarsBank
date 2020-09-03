@@ -1,15 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
+import { makeStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
 
-import MenuBar from './MenuBar';
+// components
+import Footer from './Footer';
 import Landing from './Landing';
+import MenuBar from './MenuBar';
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1
+  },
+  display: {
+    top: "calc(100vh - 56px)",
+    // bottom: "calc(100% + 30px)"
+  }
+}))
 
 function App() {
+  const classes = useStyles();
+
+  const [user, setUser] = useState({})
+
   return (
-    <div className="App">
-      <MenuBar />
-      <Landing />
-    </div>
+    <Box className={classes.root}>
+      <MenuBar user={user}/>
+      <Box className={classes.display}>
+        <Landing />
+      </Box>
+      <Footer />
+    </Box>
   );
 }
 
