@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
   },
   box1: {
     width: "80%",
-    height: "80%",
+    height: "60%",
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-around",
@@ -81,12 +81,8 @@ const Login = (props) => {
       </Box>
       <Box className={classes.box2}>
       <Typography>Not a registered user? Create an account.</Typography>
-      <Button variant="container" className={classes.button} onClick={handleCreateButton}>Create Account</Button>
+      <Button variant="contained" className={classes.button} onClick={handleCreateButton}>Create Account</Button>
       </Box>
-
-
-
-
       
     </Box>
 

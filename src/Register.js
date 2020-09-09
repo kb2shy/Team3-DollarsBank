@@ -1,10 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, Button, Typography, Input, TextField, FormControl, InputLabel, OutlinedInput, TextareaAutosize } from '@material-ui/core';
-import IconButton from '@material-ui/core/IconButton';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import { Box, Button, Typography, TextField } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   register: {
@@ -22,10 +18,10 @@ const useStyles = makeStyles(theme => ({
   // },
   box1: {
     width: "80%",
-    height: "80%",
+    height: "100%",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     alignItems: "center",
     // backgroundColor: "orange",
   },
@@ -49,19 +45,40 @@ const useStyles = makeStyles(theme => ({
 
 const Register = (props) => {
 
+  const { userFirstName, userLastName, userEmail, userPassword, checkPassword, handleOnChange, handleCreateAccountSubmit } = props;
   const classes = useStyles();
 
   const handleLoginButton = () => {
     props.clearFields();
     props.setSelection("login");
   }
-
+  
   return (
     <Box className={classes.register}>
       <Box className={classes.box1}>
         <Typography variant="h5" className={classes.title}>
           Register
-      </Typography>
+        </Typography>
+        <TextField
+          required
+          id="register-firstName"
+          type="text"
+          label="First Name"
+          variant="outlined"
+          className={classes.input}
+          onChange={handleOnChange("userFirstName")}
+          value={userFirstName}
+        />
+        <TextField
+          required
+          id="register-lastName"
+          type="text"
+          label="Last Name"
+          variant="outlined"
+          className={classes.input}
+          onChange={handleOnChange("userLastName")}
+          value={userLastName}
+        />
         <TextField
           required
           id="register-email"
@@ -69,7 +86,8 @@ const Register = (props) => {
           label="Email Address"
           variant="outlined"
           className={classes.input}
-          onChange={props.handleOnChange("userEmail")}
+          onChange={handleOnChange("userEmail")}
+          value={userEmail}
         />
         <TextField
           required
@@ -78,7 +96,9 @@ const Register = (props) => {
           label="Password"
           variant="outlined"
           className={classes.input}
-          onChange={props.handleOnChange("userPassword")}
+          onChange={handleOnChange("userPassword")}
+          value={userPassword}
+
         />
         <TextField
           required
@@ -87,18 +107,16 @@ const Register = (props) => {
           label="Verify Password"
           variant="outlined"
           className={classes.input}
-          onChange={props.handleOnChange("checkPassword")}
+          onChange={handleOnChange("checkPassword")}
+          value={checkPassword}
         />
-
-        <Button variant="contained" className={classes.button}>Create Account</Button>
+        <Button variant="contained" className={classes.button} onClick={(e) => handleCreateAccountSubmit(e)}>Create Account</Button>
       </Box>
 
       <Box className={classes.box2}>
         <Typography>Already have an account?</Typography>
-        <Button variant="container" className={classes.button} onClick={handleLoginButton}>Log In</Button>
+        <Button variant="contained" className={classes.button} onClick={handleLoginButton}>Log In</Button>
       </Box>
-
-
     </Box>
   )
 }
