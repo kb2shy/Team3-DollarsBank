@@ -12,6 +12,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Footer from './Footer';
 import Landing from './Landing';
 import MenuBar from './MenuBar';
+import AccountDetails from './AccountDetails';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -83,7 +84,8 @@ function App() {
         </Alert>
       </Snackbar>
       <Box className={classes.displayBox}>
-        <Landing getUser={getUser} displayAlert={displayAlert} />
+        {/* <Landing getUser={getUser} displayAlert={displayAlert} /> */}
+        <AccountDetails />
       </Box>
       <Footer />
     </Box>
