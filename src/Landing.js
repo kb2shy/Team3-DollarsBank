@@ -110,7 +110,6 @@ const Landing = (props) => {
   const handleCreateAccountSubmit = (e) => {
     e.preventDefault();
 
-    console.log(`userPassword: ${userPassword}, checkPassword: ${checkPassword}`);
     if (userFirstName.length === 0 || 
         userLastName.length === 0 || 
         userEmail.length === 0 || 
@@ -136,7 +135,7 @@ const Landing = (props) => {
 
   return (
     <Box className={classes.landing}>
-      <Typography variant="h1">Welcome to Dollars Bank</Typography>
+      <Typography variant="h2">Welcome to Dollars Bank</Typography>
       <Box className={classes.reglog}>
         {displaySelection()}
       </Box>
