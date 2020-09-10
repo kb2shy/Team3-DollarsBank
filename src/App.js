@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './App.css';
+import { URI } from './constants';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import { Snackbar } from '@material-ui/core';
@@ -25,7 +26,8 @@ const useStyles = makeStyles(theme => ({
 
 }))
 
-const URI = "http://localhost:3001";
+// Insert URI path for server here
+// eg http://localhost:8080
 
 function App() {
   const classes = useStyles();
@@ -35,10 +37,15 @@ function App() {
   const [openSnack, setOpenSnack] = useState(false);
   const [alert, setAlert] = useState({});
 
-  const getUser = (login) => {
-    axios.post(URI, login)
+  const loginWithEmailPW = (login) => {
+    axios.post(URI + "/user", login)
       .then(result => {
-        console.log(result.data)
+
+        const user = {
+          firstName: "Chhaian",
+          lastName: "Pin"
+        }
+        // console.log(result.data)
 
         // setUser here
         // setUser(result.data)
@@ -84,7 +91,7 @@ function App() {
         </Alert>
       </Snackbar>
       <Box className={classes.displayBox}>
-        {/* <Landing getUser={getUser} displayAlert={displayAlert} /> */}
+        {/* <Landing loginWithEmailPW={loginWithEmailPW} displayAlert={displayAlert} /> */}
         <AccountDetails />
       </Box>
       <Footer />
