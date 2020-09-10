@@ -46,19 +46,14 @@ const useStyles = makeStyles(theme => ({
 const AccountDetails = (props) => {
 
 	const { user } = props;
-	// const user = {
-	// 	firstName: "Chhaian",
-	// 	lastName: "Pin",
-	// 	email: "test@email.com",
-	// 	password: "1234"
-	//   }
+
 	const classes = useStyles();
 
 	const [showAccounts, setShowAccounts] = useState(false);
+	const [showUserProfileDisplay, setShowUserProfileDisplay] = useState(false);
+	const [showAccountDisplay, setShowAccountDisplay] = useState(false);
 	const [activeAccountDisplay, setActiveAccountDisplay] = useState({});
 	const [userAccounts, setUserAccounts] = useState([]);
-	const [showUserProfileDisplay, setShowUserProfileDisplay] = useState(true);
-	const [showAccountDisplay, setShowAccountDisplay] = useState(false);
 
 	useEffect(() => {
 		try {
@@ -89,6 +84,8 @@ const AccountDetails = (props) => {
 				setShowUserProfileDisplay(false);
 				break;
 			default:
+				setShowUserProfileDisplay(false);
+				setShowAccountDisplay(false);
 				return;
 		}
 	}
@@ -115,7 +112,7 @@ const AccountDetails = (props) => {
 		</Box>
 
 		<Box className={classes.box2}>
-			{showUserProfileDisplay && <UserProfile user={user}/>}
+			{showUserProfileDisplay && <UserProfile user={user} displayADSelection={displayADSelection}/>}
 			{showAccountDisplay && <AccountDisplay />}
     </Box>
 	</Box>

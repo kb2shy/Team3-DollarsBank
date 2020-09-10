@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
 
   },
   button: {
-    width: "80%",
+    width: "60%",
     margin: "10px auto",
     color: "white",
     fontSize: "1rem",
@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
   button2: {
     color: "white",
     fontSize: "1rem",
-    width: "80%",
+    width: "60%",
     margin: "10px auto",
     backgroundColor: theme.palette.error.main,
     '&:hover': {
@@ -52,7 +52,7 @@ const useStyles = makeStyles(theme => ({
 
 }))
 
-const UserProfile = ({ user }) => {
+const UserProfile = ({ user, displayADSelection }) => {
 
   const classes = useStyles();
 
@@ -73,6 +73,10 @@ const UserProfile = ({ user }) => {
 
   const isValidPassword = () => {
     return false;
+  }
+
+  const handleCancelButton = () => {
+    return displayADSelection("cancel")
   }
 
   console.log(user);
@@ -140,7 +144,15 @@ const UserProfile = ({ user }) => {
             className={classes.button2} 
             onClick={(e) => handleDeleteButton(e)}
           >
-            Close Account
+            Terminate Account
+          </Button>
+          <Button 
+            color="secondary"
+            variant="contained" 
+            className={classes.button} 
+            onClick={(e) => handleCancelButton(e)}
+          >
+            Cancel
           </Button>
         </Box>
       </Box>
