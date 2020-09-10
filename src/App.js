@@ -32,7 +32,12 @@ const useStyles = makeStyles(theme => ({
 function App() {
   const classes = useStyles();
 
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({
+    firstName: "Chhaian",
+    lastName: "Pin",
+    email: "test@email.com",
+    password: "1234"
+  });
   const [accountDetails, setAccountDetails] = useState({});
   const [openSnack, setOpenSnack] = useState(false);
   const [alert, setAlert] = useState({});
@@ -43,12 +48,14 @@ function App() {
 
         const user = {
           firstName: "Chhaian",
-          lastName: "Pin"
+          lastName: "Pin",
+          email: "test@email.com",
+          password: "1234"
         }
         // console.log(result.data)
 
         // setUser here
-        // setUser(result.data)
+        setUser(user)
       })
       .catch(error => {
         console.log(error)
@@ -92,7 +99,7 @@ function App() {
       </Snackbar>
       <Box className={classes.displayBox}>
         {/* <Landing loginWithEmailPW={loginWithEmailPW} displayAlert={displayAlert} /> */}
-        <AccountDetails />
+        <AccountDetails user={user}/>
       </Box>
       <Footer />
     </Box>

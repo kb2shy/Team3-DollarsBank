@@ -45,14 +45,19 @@ const useStyles = makeStyles(theme => ({
 
 const AccountDetails = (props) => {
 
-
 	const { user } = props;
+	// const user = {
+	// 	firstName: "Chhaian",
+	// 	lastName: "Pin",
+	// 	email: "test@email.com",
+	// 	password: "1234"
+	//   }
 	const classes = useStyles();
 
 	const [showAccounts, setShowAccounts] = useState(false);
 	const [activeAccountDisplay, setActiveAccountDisplay] = useState({});
 	const [userAccounts, setUserAccounts] = useState([]);
-	const [showUserProfileDisplay, setShowUserProfileDisplay] = useState(false);
+	const [showUserProfileDisplay, setShowUserProfileDisplay] = useState(true);
 	const [showAccountDisplay, setShowAccountDisplay] = useState(false);
 
 	useEffect(() => {
@@ -110,7 +115,7 @@ const AccountDetails = (props) => {
 		</Box>
 
 		<Box className={classes.box2}>
-			{showUserProfileDisplay && <UserProfile />}
+			{showUserProfileDisplay && <UserProfile user={user}/>}
 			{showAccountDisplay && <AccountDisplay />}
     </Box>
 	</Box>
