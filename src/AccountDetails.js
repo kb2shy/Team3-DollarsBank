@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { URI } from './constants';
+import { URI, ACCOUNTS } from './constants';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Button } from '@material-ui/core';
 
@@ -37,8 +37,7 @@ const useStyles = makeStyles(theme => ({
 	},
 	accountList: {
 		margin: "10px 0px",
-		padding: "10px",
-		border: "3px solid black",
+		// border: "3px solid black",
 		minHeight: "150px"
 	}
 }));
@@ -49,10 +48,10 @@ const AccountDetails = (props) => {
 
 	const classes = useStyles();
 
-	const [showAccounts, setShowAccounts] = useState(false);
+	const [showAccounts, setShowAccounts] = useState(true);
 	const [showUserProfileDisplay, setShowUserProfileDisplay] = useState(false);
 	const [showAccountDisplay, setShowAccountDisplay] = useState(false);
-	const [activeAccountDisplay, setActiveAccountDisplay] = useState({});
+	const [activeAccountDisplay, setActiveAccountDisplay] = useState(ACCOUNTS);
 	const [userAccounts, setUserAccounts] = useState([]);
 
 	useEffect(() => {
@@ -107,7 +106,7 @@ const AccountDetails = (props) => {
 				Account(s)
       </Button>
 			<Box className={classes.accountList}>
-				{showAccounts && <AccountList />}
+				{showAccounts && <AccountList accounts={ACCOUNTS}/>}
 			</Box>
 		</Box>
 
