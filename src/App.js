@@ -10,10 +10,10 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
 // components
-import Footer from './Footer';
-import Landing from './Landing';
-import MenuBar from './MenuBar';
-import AccountDetails from './AccountDetails';
+import Footer from './components/Footer';
+import Landing from './components/Landing';
+import MenuBar from './components/MenuBar';
+import AccountDetails from './components/AccountDetails';
 
 const useStyles = makeStyles(theme => ({
   root: {

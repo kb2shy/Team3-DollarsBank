@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { URI, ACCOUNTS } from './constants';
+import { URI, ACCOUNTS } from '../constants';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Button } from '@material-ui/core';
 
