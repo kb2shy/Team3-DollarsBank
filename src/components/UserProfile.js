@@ -52,7 +52,7 @@ const useStyles = makeStyles(theme => ({
 
 }))
 
-const UserProfile = ({ user, displayADSelection }) => {
+const UserProfile = ({ user, setActiveAccountDisplay }) => {
 
   const classes = useStyles();
 
@@ -76,10 +76,8 @@ const UserProfile = ({ user, displayADSelection }) => {
   }
 
   const handleCancelButton = () => {
-    return displayADSelection("cancel")
+    return setActiveAccountDisplay(undefined)
   }
-
-  console.log(user);
 
   return (
     <Box className={classes.userProfile}>

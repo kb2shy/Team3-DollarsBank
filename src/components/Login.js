@@ -60,6 +60,7 @@ const Login = (props) => {
         Log In
       </Typography>
       <TextField
+        autoComplete="off"
         required
         id="login-email"
         type="email"

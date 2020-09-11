@@ -32,8 +32,13 @@ const useStyles = makeStyles(theme => ({
 	userOption: {
 		height: "60px",
 		width: "100%",
-		backgroundColor: "purple",
-		marginTop: "10px"
+		color: "white",
+		fontSize: "1rem",
+		backgroundColor: theme.palette.secondary.main,
+		marginTop: "10px",
+		"&:hover": {
+			backgroundColor: theme.palette.secondary.light,
+		}
 	},
 	accountList: {
 		margin: "10px 0px",
@@ -42,17 +47,18 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-const AccountDetails = (props) => {
+const AccountDetails = ({ user }) => {
 
-	const { user } = props;
+	console.log("user passed to AcountDetails", user);
 
 	const classes = useStyles();
 
 	const [showAccounts, setShowAccounts] = useState(true);
 	const [showUserProfileDisplay, setShowUserProfileDisplay] = useState(false);
 	const [showAccountDisplay, setShowAccountDisplay] = useState(false);
-	const [activeAccountDisplay, setActiveAccountDisplay] = useState(ACCOUNTS);
-	const [userAccounts, setUserAccounts] = useState([]);
+	const [activeAccountDisplay, setActiveAccountDisplay] = useState(undefined);
+	const [userAccounts, setUserAccounts] = useState(ACCOUNTS);
+	const [account, setAccount] = useState(undefined);
 
 	useEffect(() => {
 		try {
@@ -69,23 +75,14 @@ const AccountDetails = (props) => {
 		}
 	}, [])
 	
-	const displayADSelection = (display) => {
-		switch (display) {
+	const displayADSelection = () => {
+		switch (activeAccountDisplay) {
 			case "user":
-				setShowUserProfileDisplay(true);
-				setShowAccountDisplay(false);
-				break;
-			case "accounts":
-				setShowAccounts(!showAccounts);
-				break;
-			case "displayAccount":
-				setShowAccountDisplay(true);
-				setShowUserProfileDisplay(false);
-				break;
+				return <UserProfile user={user} setActiveAccountDisplay={setActiveAccountDisplay}/>
+			case "account":
+				return <AccountDisplay account={account}/>
 			default:
-				setShowUserProfileDisplay(false);
-				setShowAccountDisplay(false);
-				return;
+				return null;
 		}
 	}
 
@@ -94,26 +91,25 @@ const AccountDetails = (props) => {
 			<Button
 				variant="outlined"
 				className={classes.userOption}
-				onClick={() => displayADSelection("user")}
+				onClick={() => setActiveAccountDisplay("user")}
 			>
-				User
+				Account Profile
             </Button>
 			<Button
 				variant="outlined"
 				className={classes.userOption}
-				onClick={() => displayADSelection("accounts")}
+				onClick={() => setShowAccounts(!showAccounts)}
 			>
-				Account(s)
-      </Button>
+				{showAccounts ? "Hide Account(s)" : "Show Acount(s)"}
+			</Button>
 			<Box className={classes.accountList}>
-				{showAccounts && <AccountList accounts={ACCOUNTS}/>}
+				{showAccounts && <AccountList accounts={userAccounts} setAccount={setAccount} setActiveAccountDisplay={setActiveAccountDisplay}/>}
 			</Box>
 		</Box>
 
 		<Box className={classes.box2}>
-			{showUserProfileDisplay && <UserProfile user={user} displayADSelection={displayADSelection}/>}
-			{showAccountDisplay && <AccountDisplay />}
-    </Box>
+			{displayADSelection()}
+		</Box>
 	</Box>
 }
 

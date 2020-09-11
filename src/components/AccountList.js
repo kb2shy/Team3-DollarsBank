@@ -9,16 +9,24 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: "lightgrey"
     },
     card: {
-        width: "90%",
+        width: "100%",
         ':not(:first-child)': {
             marginTop: "5px"
+        },
+        '&:hover': {
+            cursor: "pointer"
         }
     }
 }))
 
-const AccountList = ({ accounts }) => {
+const AccountList = ({ accounts, setAccount, setActiveAccountDisplay }) => {
 
     const classes = useStyles();
+
+    const handleAccountSelect = (acct) => {
+        setAccount(acct);
+        return setActiveAccountDisplay("account");
+    }
 
     return <Box className={classes.accountList}>
         {accounts.map(account => {
@@ -27,7 +35,8 @@ const AccountList = ({ accounts }) => {
             return (
             <Card 
                 key={account.acctNumber} 
-                onClick={() => console.log("clicked on account #" + account.acctNumber)}
+                className={classes.card}
+                onClick={() => handleAccountSelect(account.acctNumber)}
                 variant="outlined"
             >
                 <CardContent>

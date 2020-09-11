@@ -41,9 +41,9 @@ function App() {
   const [displayState, setDisplayState] = useState("home");
 
   const loginWithEmailPW = (login) => {
-    console.log("in loginWithEmailPW:", login);
+    
     if (login.email === USER.email && login.password === USER.password) {
-      console.log("inside login condition");
+      
       setDisplayState("loading");
       setTimeout(() => {
         setDisplayState("loggedIn");
