@@ -23,6 +23,8 @@ const AccountList = ({ accounts, setAccount, setActiveAccountDisplay }) => {
 
     const classes = useStyles();
 
+    console.log(accounts);
+
     const handleAccountSelect = (acct) => {
         setAccount(acct);
         return setActiveAccountDisplay("account");
@@ -30,13 +32,13 @@ const AccountList = ({ accounts, setAccount, setActiveAccountDisplay }) => {
 
     return <Box className={classes.accountList}>
         {accounts.map(account => {
-            // return console.log(typeof account.acctNumber);
-            const acctNum = "***" + account.acctNumber.substring(5, 9);
+            // return console.log(typeof account.acctId);
+            const acctNum = "***" + account.acctId.substring(5, 9);
             return (
             <Card 
-                key={account.acctNumber} 
+                key={account.acctId} 
                 className={classes.card}
-                onClick={() => handleAccountSelect(account.acctNumber)}
+                onClick={() => handleAccountSelect(account.acctId)}
                 variant="outlined"
             >
                 <CardContent>

@@ -13,7 +13,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import AccountDetails from './components/AccountDetails';
 import Footer from './components/Footer';
 import Landing from './components/Landing';
-import Loading from './components/Loading';
+import LoadingBank from './components/LoadingBank';
 import MenuBar from './components/MenuBar';
 
 const useStyles = makeStyles(theme => ({
@@ -94,7 +94,7 @@ function App() {
   const display = () => {
     switch(displayState) {
       case "loading":
-        return <Loading />;
+        return <LoadingBank />;
       case "loggedIn":
         return <AccountDetails user={user}/>;
       default: 
