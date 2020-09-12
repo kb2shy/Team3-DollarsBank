@@ -5,6 +5,7 @@ import { Box, Typography } from "@material-ui/core";
 // components
 import Register from './Register';
 import Login from './Login';
+import Axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   landing: {
@@ -48,7 +49,10 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const Landing = (props) => {
+  const { loginWithEmailPW, createAccount, displayAlert } = props;
+
   const classes = useStyles();
+
   const [selection, setSelection] = useState("login");
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
@@ -85,9 +89,12 @@ const Landing = (props) => {
     switch(selection) {
       case "login":
         return <Login
+        userEmail={userEmail}
+        userPassword={userPassword}
         handleOnChange={handleOnChange} 
         setSelection={setSelection}
-        clearFields={clearFields} />;
+        clearFields={clearFields} 
+        handleLoginSubmit={handleLoginSubmit} />;
       case "register":
         return <Register
           handleOnChange={handleOnChange} 
@@ -107,6 +114,18 @@ const Landing = (props) => {
     }
   }
 
+  const handleLoginSubmit = (e) => {
+    e.preventDefault()
+    
+    const loginUser = {
+      email: userEmail,
+      password: userPassword
+    }
+    
+    loginWithEmailPW(loginUser);
+    return clearFields();
+  }
+
   const handleCreateAccountSubmit = (e) => {
     e.preventDefault();
 
@@ -124,13 +143,6 @@ const Landing = (props) => {
       setCheckPassword("");
       return props.displayAlert({ severity: "error", title: "Passwords error", msg: "Passwords do not match."});
     }
-
-    // const user = {
-    //   firstName: userFirstName,
-    //   lastName: userLastName,
-    //   email: userEmail,
-    //   password: userPassword,
-    // }
   }
 
   return (

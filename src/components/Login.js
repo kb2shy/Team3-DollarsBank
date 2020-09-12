@@ -44,11 +44,13 @@ const useStyles = makeStyles(theme => ({
 
 const Login = (props) => {
 
+  const { handleOnChange, setSelection, clearFields, handleLoginSubmit, userEmail, userPassword} = props;
+
   const classes = useStyles();
 
   const handleCreateButton = () => {
-    props.clearFields();
-    props.setSelection("register");
+    clearFields();
+    setSelection("register");
   }
 
   return (
@@ -58,14 +60,15 @@ const Login = (props) => {
         Log In
       </Typography>
       <TextField
+        autoComplete="off"
         required
         id="login-email"
         type="email"
         label="Email Address"
         variant="outlined"
         className={classes.input}
-        value={props.userEmail}
-        onChange={props.handleOnChange("userEmail")}
+        value={userEmail}
+        onChange={handleOnChange("userEmail")}
       />
       <TextField
         required
@@ -74,16 +77,21 @@ const Login = (props) => {
         label="Password"
         variant="outlined"
         className={classes.input}
-        value={props.userPassword}
-        onChange={props.handleOnChange("userPassword")}
+        value={userPassword}
+        onChange={handleOnChange("userPassword")}
       />
-      <Button variant="contained" className={classes.button}>Log In</Button>
+      <Button 
+        variant="contained" 
+        className={classes.button} 
+        onClick={handleLoginSubmit}
+      >
+        Log In
+      </Button>
       </Box>
       <Box className={classes.box2}>
       <Typography>Not a registered user? Create an account.</Typography>
       <Button variant="contained" className={classes.button} onClick={handleCreateButton}>Create Account</Button>
       </Box>
-      
     </Box>
 
   )

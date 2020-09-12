@@ -32,7 +32,7 @@ const MenuBar = (props) => {
 					<Typography variant="h6" className={classes.title}>
 						Dollars Bank
 					</Typography>
-					<Button color="inherit">Login</Button>
+					{ props.user ? <Button color="inherit">Log Out</Button> : null}
 				</Toolbar>
 			</AppBar>
 		</div>
