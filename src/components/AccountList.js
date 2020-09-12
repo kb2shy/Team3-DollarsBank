@@ -27,7 +27,7 @@ const AccountList = ({ accounts, setAccount, setActiveAccountDisplay }) => {
 
     const handleAccountSelect = (acct) => {
         setAccount(acct);
-        return setActiveAccountDisplay("account");
+        return setActiveAccountDisplay("loading");
     }
 
     return <Box className={classes.accountList}>

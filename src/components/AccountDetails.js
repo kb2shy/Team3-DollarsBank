@@ -8,6 +8,7 @@ import { Box, Button } from '@material-ui/core';
 import UserProfile from './UserProfile';
 import AccountDisplay from './AccountDisplay';
 import AccountList from './AccountList';
+import LoadingMoney from './LoadingMoney';
 
 const useStyles = makeStyles(theme => ({
 	accountDetails: {
@@ -59,6 +60,7 @@ const AccountDetails = ({ user }) => {
 	const [activeAccountDisplay, setActiveAccountDisplay] = useState(undefined);
 	const [userAccounts, setUserAccounts] = useState(ACCOUNTS);
 	const [account, setAccount] = useState(undefined);
+	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
 		try {
@@ -81,12 +83,20 @@ const AccountDetails = ({ user }) => {
 				return <UserProfile user={user} setActiveAccountDisplay={setActiveAccountDisplay}/>
 			case "account":
 				return <AccountDisplay account={account}/>
+			case "loading":
+				setIsLoading(true)
+				setTimeout(() => {
+					setIsLoading(false)
+					setActiveAccountDisplay("account");
+				}, 3000);
+				break;
 			default:
 				return null;
 		}
 	}
 
 	return <Box className={classes.accountDetails}>
+
 		<Box className={classes.box1}>
 			<Button
 				variant="outlined"
@@ -107,9 +117,12 @@ const AccountDetails = ({ user }) => {
 			</Box>
 		</Box>
 
-		<Box className={classes.box2}>
-			{displayADSelection()}
-		</Box>
+		{isLoading ? 
+			<LoadingMoney /> :
+			<Box className={classes.box2}>
+				{displayADSelection()}
+			</Box>
+		}
 	</Box>
 }
 

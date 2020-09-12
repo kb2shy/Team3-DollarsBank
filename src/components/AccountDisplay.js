@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Box, Button, Typography } from '@material-ui/core';
 
 import { TRANSACTIONS } from '../constants';
+import LoadingMoney from '../components/LoadingMoney';
 
 const useStyles = makeStyles(theme => ({
     accountDisplay: {
@@ -55,6 +56,7 @@ const AccountDisplay = ({ account }) => {
     const classes = useStyles();
 
     const [transactions, setTransactions] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         if (transactions.length === 0) {
@@ -62,6 +64,7 @@ const AccountDisplay = ({ account }) => {
             // console.log(trans);
             setTransactions(trans);
         }
+
     }, [])
 
     // console.log(transactions)
@@ -69,8 +72,8 @@ const AccountDisplay = ({ account }) => {
         <Box className={classes.title}>
             <Box className={classes.acctDetails}>
                 <Typography variant="h6">{account.acctType}</Typography>
-                {account.balance > 0 ? 
-                    <Typography className={classes.balanceGreen}>{`Balance: ${account.balance}`}</Typography> : 
+                {account.balance > 0 ?
+                    <Typography className={classes.balanceGreen}>{`Balance: ${account.balance}`}</Typography> :
                     <Typography className={classes.balanceRed}>{`Balance: ${account.balance}`}</Typography>
                 }
             </Box>
