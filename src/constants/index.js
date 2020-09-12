@@ -12,7 +12,7 @@ export const ACCOUNTS = [
     {
         acctId: "123456789",
         userId: 1,
-        acctType: "checking",
+        acctType: "Checking",
         balance: 100
     },
     {
@@ -23,38 +23,31 @@ export const ACCOUNTS = [
     }
 ]
 
-export const TRANSACTIONS1 = [
+export const TRANSACTIONS = [
     {
         transactionId: 300,
-        fromAccountId: "111111111",
-        toAccountId: "123456789",
+        acctId: "123456789",
         userId: 1,
         action: "deposit",
         amount: 100
     },
     {
         transactionId: 301,
-        fromAccountId: "123456789",
-        toAccountId: "111111111",
+        acctId: "123456789",
         userId: 1,
         action: "withdrawal",
         amount: 10
     },
-]
-
-export const TRANSACTIONS2 = [
     {
         transactionId: 302,
-        fromAccountId: "111111111",
-        toAccountId: "012345678",
+        acctId: "012345678",
         userId: 1,
         action: "deposit",
         amount: 50
     },
     {
         transactionId: 304,
-        fromAccountId: "012345678",
-        toAccountId: "111111111",
+        acctId: "012345678",
         userId: 1,
         action: "withdrawal",
         amount: 100

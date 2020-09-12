@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme => ({
 
 const AccountDetails = ({ user }) => {
 
-	console.log("user passed to AcountDetails", user);
+	// console.log("user passed to AcountDetails", user);
 
 	const classes = useStyles();
 

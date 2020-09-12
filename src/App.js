@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
 function App() {
   const classes = useStyles();
 
-  const [user, setUser] = useState(undefined);
+  const [user, setUser] = useState(USER);
   const [accountDetails, setAccountDetails] = useState({});
   const [openSnack, setOpenSnack] = useState(false);
   const [alert, setAlert] = useState({});
@@ -126,7 +126,8 @@ function App() {
         </Alert>
       </Snackbar>
       <Box className={classes.displayBox}>
-        {display()}
+        {/* {display()} */}
+        <AccountDetails user={user}/>
       </Box>
       <Footer />
     </Box>

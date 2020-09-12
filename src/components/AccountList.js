@@ -23,7 +23,7 @@ const AccountList = ({ accounts, setAccount, setActiveAccountDisplay }) => {
 
     const classes = useStyles();
 
-    console.log(accounts);
+    // console.log(accounts);
 
     const handleAccountSelect = (acct) => {
         setAccount(acct);
@@ -38,7 +38,7 @@ const AccountList = ({ accounts, setAccount, setActiveAccountDisplay }) => {
             <Card 
                 key={account.acctId} 
                 className={classes.card}
-                onClick={() => handleAccountSelect(account.acctId)}
+                onClick={() => handleAccountSelect(account)}
                 variant="outlined"
             >
                 <CardContent>
