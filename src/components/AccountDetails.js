@@ -55,12 +55,9 @@ const AccountDetails = ({ user }) => {
 	const classes = useStyles();
 
 	const [showAccounts, setShowAccounts] = useState(true);
-	const [showUserProfileDisplay, setShowUserProfileDisplay] = useState(false);
-	const [showAccountDisplay, setShowAccountDisplay] = useState(false);
 	const [activeAccountDisplay, setActiveAccountDisplay] = useState(undefined);
 	const [userAccounts, setUserAccounts] = useState(ACCOUNTS);
 	const [account, setAccount] = useState(undefined);
-	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
 		try {
@@ -84,12 +81,10 @@ const AccountDetails = ({ user }) => {
 			case "account":
 				return <AccountDisplay account={account}/>
 			case "loading":
-				setIsLoading(true)
 				setTimeout(() => {
-					setIsLoading(false)
 					setActiveAccountDisplay("account");
 				}, 3000);
-				break;
+				return <LoadingMoney />;
 			default:
 				return null;
 		}
@@ -117,12 +112,9 @@ const AccountDetails = ({ user }) => {
 			</Box>
 		</Box>
 
-		{isLoading ? 
-			<LoadingMoney /> :
-			<Box className={classes.box2}>
-				{displayADSelection()}
-			</Box>
-		}
+		<Box className={classes.box2}>
+			{displayADSelection()}
+		</Box>
 	</Box>
 }
 

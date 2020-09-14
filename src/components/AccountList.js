@@ -1,4 +1,5 @@
 import React from 'react';
+import { TRANSACTIONS } from '../constants';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Card, CardContent, Typography } from '@material-ui/core';
 
@@ -23,17 +24,21 @@ const AccountList = ({ accounts, setAccount, setActiveAccountDisplay }) => {
 
     const classes = useStyles();
 
-    // console.log(accounts);
-
     const handleAccountSelect = (acct) => {
         setAccount(acct);
         return setActiveAccountDisplay("loading");
+    }
+
+    const calculateBalance = (account) => {
+        const transactions = TRANSACTIONS.filter(transaction => transaction.acctId === account.acctId);
+        return transactions.reduce((transaction, value) => transaction.amount + value.amount) + account.balance;  
     }
 
     return <Box className={classes.accountList}>
         {accounts.map(account => {
             // return console.log(typeof account.acctId);
             const acctNum = "***" + account.acctId.substring(5, 9);
+
             return (
             <Card 
                 key={account.acctId} 
@@ -49,7 +54,7 @@ const AccountList = ({ accounts, setAccount, setActiveAccountDisplay }) => {
                         {`Type: ${account.acctType}`}
                     </Typography>
                     <Typography>
-                        {`Balance: ${account.balance}`}
+                        {`Balance: ` + calculateBalance(account)}
                     </Typography>
                 </CardContent>
             </Card>

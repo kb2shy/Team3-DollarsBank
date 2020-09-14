@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, Button, Typography } from '@material-ui/core';
+import { Box, Button, TextField, Typography } from '@material-ui/core';
 
 import { TRANSACTIONS } from '../constants';
-import LoadingMoney from '../components/LoadingMoney';
 
 const useStyles = makeStyles(theme => ({
     accountDisplay: {
@@ -13,13 +12,15 @@ const useStyles = makeStyles(theme => ({
     },
     title: {
         display: "flex",
-        alignItems: "center",
-        height: "80px",
+        height: "100px",
         backgroundColor: "white",
     },
     acctDetails: {
+        display: "flex",
+        flexDirection: "column",
         width: "30%",
-        backgroundColor: "lightgrey"
+        backgroundColor: "lightgrey",
+        
     },
     acctOptions: {
         display: "flex",
@@ -31,10 +32,12 @@ const useStyles = makeStyles(theme => ({
         color: "white"
     },
     balanceRed: {
-        color: "red"
+        color: "red",
+        marginTop: "auto"
     },
     balanceGreen: {
-        color: "green"
+        color: "green",
+        marginTop: "auto"
     },
     btn1: {
         backgroundColor: theme.palette.primary.main,
@@ -47,6 +50,17 @@ const useStyles = makeStyles(theme => ({
     btn3: {
         backgroundColor: theme.palette.secondary.main,
         color: "white"
+    },
+    acctOptions__input: {
+        display: "flex",
+        flexDirection: "column",
+        margin: "5px"
+        // justifyContent: "space-between"
+    },
+    input: {
+        marginTop: "auto",
+        width: "100%",
+        // height: "40%"
     }
 }))
 
@@ -56,31 +70,108 @@ const AccountDisplay = ({ account }) => {
     const classes = useStyles();
 
     const [transactions, setTransactions] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
+    const [deposit, setDeposit] = useState(0);
+    const [withdrawal, setWithdrawal] = useState(0);
+    const [transfer, setTransfer] = useState({});
+    const [accountBalance, setAccountBalance] = useState(0);
 
     useEffect(() => {
         if (transactions.length === 0) {
-            const trans = TRANSACTIONS.filter(transaction => transaction.acctId === account.acctId)
+            const trans = TRANSACTIONS.filter(transaction => transaction.acctId === account.acctId);
+            const ab = trans.reduce((t, val) => t.amount + val.amount) + account.balance;
             // console.log(trans);
             setTransactions(trans);
+            setAccountBalance(ab);
         }
 
-    }, [])
+    }, []);
+
+    const handleDepositButton = (e) => {
+        e.preventDefault();
+
+        if (deposit <= 0) return;
+
+        setAccountBalance(accountBalance + deposit);
+        setDeposit(0);
+    }
+
+    const handleWithdrawalButton = (e) => {
+        e.preventDefault();
+
+        if (withdrawal <= 0 || withdrawal > accountBalance) return;
+
+        setAccountBalance(accountBalance - withdrawal);
+        setWithdrawal(0);
+    }
 
     // console.log(transactions)
     return <Box className={classes.accountDisplay}>
         <Box className={classes.title}>
             <Box className={classes.acctDetails}>
-                <Typography variant="h6">{account.acctType}</Typography>
-                {account.balance > 0 ?
-                    <Typography className={classes.balanceGreen}>{`Balance: ${account.balance}`}</Typography> :
-                    <Typography className={classes.balanceRed}>{`Balance: ${account.balance}`}</Typography>
+                <Typography variant="h4">{account.acctType}</Typography>
+                {accountBalance >= 0 ?
+                    <Typography variant="h5" className={classes.balanceGreen}>{`Balance: ${accountBalance}`}</Typography> :
+                    <Typography variant="h5" className={classes.balanceRed}>{`Balance: ${accountBalance}`}</Typography>
                 }
             </Box>
             <Box className={classes.acctOptions}>
-                <Button variant="contained" className={classes.btn1}>Deposit Cash</Button>
-                <Button variant="contained" className={classes.btn2}>Withdraw Cash</Button>
-                <Button variant="contained" className={classes.btn3}>Transfer Money</Button>
+                <Box className={classes.acctOptions__input}>
+                    <Button 
+                        variant="contained" 
+                        className={classes.btn1}
+                        onClick={e => handleDepositButton(e)}
+                    >
+                        Deposit Cash
+                    </Button>
+                    <TextField 
+                        variant="outlined" 
+                        label="amount"
+                        type="number"
+                        InputProps={{ inputProps: { min: 0 }}}
+                        size="small"
+                        className={classes.input}
+                        value={deposit}
+                        onChange={(e) => setDeposit(e.target.value)}
+                    />
+                </Box>
+                <Box className={classes.acctOptions__input}>
+                    <Button 
+                        variant="contained" 
+                        className={classes.btn2}
+                        onClick={e => handleWithdrawalButton(e)}
+                    >
+                        Withdraw Cash
+                    </Button>
+                    <TextField 
+                        variant="outlined" 
+                        label="amount"
+                        type="number"
+                        InputProps={{ inputProps: { min: 0 }}}
+                        size="small"
+                        className={classes.input}
+                        value={withdrawal}
+                        onChange={(e) => setWithdrawal(e.target.value)}
+                    />
+                </Box>
+                <Box className={classes.acctOptions__input}>
+                    <Button 
+                        disabled
+                        variant="contained" 
+                        className={classes.btn3}
+                    >
+                        Transfer
+                    </Button>
+                    <TextField 
+                        disabled
+                        variant="outlined" 
+                        label="amount"
+                        type="number"
+                        size="small"
+                        className={classes.input}
+                        value={transfer}
+                        onChange={(e) => setTransfer(e)}
+                    />
+                </Box>
             </Box>
         </Box>
     </Box>

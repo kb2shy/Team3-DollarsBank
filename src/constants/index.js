@@ -13,13 +13,13 @@ export const ACCOUNTS = [
         acctId: "123456789",
         userId: 1,
         acctType: "Checking",
-        balance: 100
+        balance: 0
     },
     {
         acctId: "012345678",
         userId: 1,
         acctType: "Savings",
-        balance: 10000
+        balance: 0
     }
 ]
 
@@ -29,7 +29,7 @@ export const TRANSACTIONS = [
         acctId: "123456789",
         userId: 1,
         action: "deposit",
-        amount: 100
+        amount: 100,
     },
     {
         transactionId: 301,
@@ -43,7 +43,7 @@ export const TRANSACTIONS = [
         acctId: "012345678",
         userId: 1,
         action: "deposit",
-        amount: 50
+        amount: 10000
     },
     {
         transactionId: 304,

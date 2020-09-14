@@ -34,10 +34,8 @@ function App() {
   const classes = useStyles();
 
   const [user, setUser] = useState(USER);
-  const [accountDetails, setAccountDetails] = useState({});
   const [openSnack, setOpenSnack] = useState(false);
   const [alert, setAlert] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
   const [displayState, setDisplayState] = useState("home");
 
   const loginWithEmailPW = (login) => {
