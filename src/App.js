@@ -99,7 +99,7 @@ function App() {
 
   return (
     <Box className={classes.root}>
-      <MenuBar user={user} />
+      <MenuBar user={user} setDisplayState={setDisplayState} setUser={setUser}/>
       <div className={classes.toolbar} />
       <Snackbar open={openSnack} autoHideDuration={6000} onClose={handleSnackClose}>
         <Alert 
