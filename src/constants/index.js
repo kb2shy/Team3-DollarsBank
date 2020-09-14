@@ -5,7 +5,9 @@ export const USER = {
     firstName: "Chhaian",
     lastName: "Pin",
     email: "test@email.com",
-    password: "1234"
+    password: "1234",
+    createdAt: new Date("2020-08-31T00:00:00.000"),
+    updatedAt: new Date("2020-08-31T00:00:00.000")
 }
 
 export const ACCOUNTS = [

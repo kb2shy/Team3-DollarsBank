@@ -6,7 +6,7 @@ const useStyles = makeStyles(theme => ({
   login: {
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     alignItems: "center",
     width: "100%",
     height: "100%",
