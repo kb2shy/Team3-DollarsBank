@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
 function App() {
   const classes = useStyles();
 
-  const [user, setUser] = useState(USER);
+  const [user, setUser] = useState(null);
   const [openSnack, setOpenSnack] = useState(false);
   const [alert, setAlert] = useState({});
   const [displayState, setDisplayState] = useState("home");

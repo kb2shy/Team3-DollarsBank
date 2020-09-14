@@ -8,7 +8,7 @@ import Transaction from './Transaction';
 
 const useStyles = makeStyles(theme => ({
     accountDisplay: {
-        width: "100%",
+        width: "calc(100% - 20px)",
         height: "100%",
         padding: "10px"
         // backgroundColor: "lightgreen"
@@ -108,11 +108,14 @@ const AccountDisplay = ({ account, user }) => {
 
     const handleDepositButton = (e) => {
         e.preventDefault();
-        console.log(typeof deposit);
-        console.log(typeof accountBalance);
+
+        let transId = 6000;
+        if (transactions.length > 0) {
+            transId = transactions[0].transactionId;
+        }
 
         const newTransaction = {
-            transactionId: transactions[0].transactionId + 1,
+            transactionId: transId + 1,
             userId: user.userId,
             action: "deposit",
             amount: deposit,
@@ -139,7 +142,7 @@ const AccountDisplay = ({ account, user }) => {
             date: new Date(),
         }
 
-        if (withdrawal <= 0 || accountBalance < 0) return;
+        if (withdrawal <= 0 || accountBalance <= 0) return;
 
         setTransactions([newTransaction, ...transactions])
         setAccountBalance(Number(accountBalance) - Number(withdrawal.toFixed(2)));
@@ -179,7 +182,7 @@ const AccountDisplay = ({ account, user }) => {
                 </Box>
                 <Box className={classes.acctOptions__input}>
                     <Button 
-                        disabled={accountBalance < 0}
+                        disabled={accountBalance <= 0}
                         variant="contained" 
                         className={classes.btn2}
                         onClick={e => handleWithdrawalButton(e)}
