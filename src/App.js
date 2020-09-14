@@ -64,13 +64,41 @@ function App() {
       }) */
   }
 
-  const createAccount = (data) => {
-
-    // when routes are set up, need to test this
+  const createUser = (data) => {
+    // all POST API to create User
     try {
       axios.post(`${URI}/register`, data)
-      .then(result => console.log(result.data))
+      .then(result => {
+        // console.log(result.data)
+        setUser(result.data);
+        console.log("User created and stored in state");
+      })
       .catch(error => console.log(error))      
+    } catch (error) {
+
+    }
+  }
+
+  const createAccount = (data) => {
+    // object to create account
+    const obj = {
+      userId: user.userId,
+      accountType: data.accountType,
+      balance: data.initialTransaction
+    }
+
+    // call POST API to create Account
+    try {
+      axios.post(`${URI}/account`, obj)
+        .then(result => {
+          if (result.status === 201) {
+            setDisplayState("loading");
+            setTimeout(() => {
+              setDisplayState("loggedIn");
+            }, 3000);
+          }
+        })
+        .catch(error => console.log(error))
     } catch (error) {
 
     }
@@ -93,7 +121,11 @@ function App() {
       case "loggedIn":
         return <AccountDetails user={user}/>;
       default: 
-        return <Landing loginWithEmailPW={loginWithEmailPW} displayAlert={displayAlert} />; 
+        return <Landing 
+          loginWithEmailPW={loginWithEmailPW} 
+          displayAlert={displayAlert} 
+          createUser={createUser}
+          createAccount={createAccount} />; 
     }
   } 
 

@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Typography } from "@material-ui/core";
-import axios from "axios";
-import { URI } from '../constants';
 
 // components
-import Register from './Register';
 import Login from './Login';
+import Register from './Register';
+import Register2 from './Register2';
 
 const useStyles = makeStyles((theme) => ({
   landing: {
@@ -49,16 +48,18 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const Landing = ({ loginWithEmailPW, createAccount, displayAlert }) => {
+const Landing = ({ loginWithEmailPW, createUser, createAccount, displayAlert }) => {
 
   const classes = useStyles();
 
-  const [selection, setSelection] = useState("login");
+  const [selection, setSelection] = useState("register");
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
   const [userFirstName, setUserFirstName] = useState("");
   const [userLastName, setUserLastName] = useState("");
+  const [accountType, setAccountType] = useState("");
+  const [initialTransaction, setInitialTransaction] = useState("");
 
   const handleOnChange = (prop) => (e) => {
     switch (prop) {
@@ -72,6 +73,10 @@ const Landing = ({ loginWithEmailPW, createAccount, displayAlert }) => {
         return setUserFirstName(e.target.value);
       case "userLastName":
         return setUserLastName(e.target.value);
+      case "accountType":
+        return setAccountType(e.target.value);
+      case "initialTransaction":
+        return setInitialTransaction(e.target.value);
       default:
         return
     }
@@ -83,6 +88,8 @@ const Landing = ({ loginWithEmailPW, createAccount, displayAlert }) => {
     setCheckPassword("");
     setUserFirstName("");
     setUserLastName("");
+    setAccountType("");
+    setInitialTransaction(null)
   }
 
   const displaySelection = () => {
@@ -100,12 +107,20 @@ const Landing = ({ loginWithEmailPW, createAccount, displayAlert }) => {
           handleOnChange={handleOnChange} 
           setSelection={setSelection}
           clearFields={clearFields} 
-          handleCreateAccountSubmit={handleCreateAccountSubmit}
+          handleCreateUserSubmit={handleCreateUserSubmit}
           userFirstName={userFirstName}
           userLastName={userLastName}
           userEmail={userEmail}
           userPassword={userPassword}
           checkPassword={checkPassword} />
+      case "register2":
+        return <Register2 
+          handleOnChange={handleOnChange}
+          setSelection={setSelection}
+          clearFields={clearFields}
+          accountType={accountType}
+          initialTransaction={initialTransaction}
+          handleCreateAccountSubmit={handleCreateAccountSubmit} />
       default:
         return <Login
         userEmail={userEmail}
@@ -126,7 +141,7 @@ const Landing = ({ loginWithEmailPW, createAccount, displayAlert }) => {
     return clearFields();
   }
 
-  const handleCreateAccountSubmit = (e) => {
+  const handleCreateUserSubmit = (e) => {
     e.preventDefault();
 
     if (userFirstName.length === 0 || 
@@ -151,13 +166,19 @@ const Landing = ({ loginWithEmailPW, createAccount, displayAlert }) => {
       password: userPassword
     }
 
-    try {     
-      axios.post(URI + "/register", newUser)
-        .then(result => console.log(result.data))
-        .catch(error => console.log(error))
-    } catch (error) {
-      
+    return createUser(newUser);
+  }
+
+  const handleCreateAccountSubmit = (e) => {
+    e.preventDefault();
+
+    const newAccount = {
+      accountType,
+      initialTransaction
     }
+
+    createAccount(newAccount);
+    return clearFields();
   }
 
   return (
@@ -165,6 +186,7 @@ const Landing = ({ loginWithEmailPW, createAccount, displayAlert }) => {
       <Typography className={classes.title} variant="h2">Welcome to Dollars Bank</Typography>
       <Box className={classes.reglog}>
         {displaySelection()}
+        {/* <Register2 /> */}
       </Box>
     </Box>
   )
