@@ -16,13 +16,16 @@ const useStyles = makeStyles(theme => ({
         height: "100%",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "space-around",
+        // justifyContent: "space-around",
         alignItems: "center",
     },
     formControl: {
         marginTop: "10px",
         width: "100%",
         height: "100%"
+    },
+    input: {
+        marginBottom: "10px"
     },
     box2: {
         width: "80%",
@@ -65,7 +68,7 @@ const Register2 = (props) => {
             <Box className={classes.box1}>
                 <Typography variant="h5" className={classes.title}>
                     Register: Step 2
-        </Typography>
+                </Typography>
                 <FormControl className={classes.formControl} ref={selectionRef}>
                     <InputLabel id="label-accountType">Account Type</InputLabel>
                     <Select
@@ -79,7 +82,7 @@ const Register2 = (props) => {
                         <MenuItem value={"savings"}>Savings</MenuItem>
                     </Select>
                 </FormControl>
-                <Typography>Make your first deposit</Typography>
+                <Typography className={classes.input}>Make your first deposit</Typography>
                 <TextField
                     variant="outlined"
                     label="amount"
