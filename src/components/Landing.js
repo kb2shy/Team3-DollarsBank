@@ -9,11 +9,11 @@ import Axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   landing: {
-    // backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/landing.jpg')`,
+    backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/bank.jpg')`,
     // height: "100vh",
-    // backgroundPosition: "center",
-    // backgroundRepeat: "no-repeat",
-    // backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
     // top: "74px",
     position: "relative",
     display: "flex",
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     height: "100%"
   },
   title: {
-    color: "black"
+    color: "#eee"
   },
   reglog: {
     // opacity: "0.6",
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     // flexDirection: "column",
     // justifyContent: "space-between",
     // alignItems: "center",
-    backgroundColor: "orange",
+    backgroundColor: "#eee",
     width: "50%",
     height: "60%",
     margin: "0 auto",
@@ -147,7 +147,7 @@ const Landing = (props) => {
 
   return (
     <Box className={classes.landing}>
-      <Typography variant="h2">Welcome to Dollars Bank</Typography>
+      <Typography className={classes.title} variant="h2">Welcome to Dollars Bank</Typography>
       <Box className={classes.reglog}>
         {displaySelection()}
       </Box>

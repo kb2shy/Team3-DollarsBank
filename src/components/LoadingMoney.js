@@ -1,6 +1,6 @@
 import React from 'react';
 import Lottie from 'react-lottie';
-import * as loading from '../json/bank-loading.json';
+import * as loading from '../json/money-machine.json';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box } from '@material-ui/core';
 
@@ -23,7 +23,7 @@ const defaultOptions = {
     }
 };
 
-const LoadingBank = () => {
+const LoadingMoney = () => {
     const classes = useStyles();
 
     return (
@@ -33,4 +33,4 @@ const LoadingBank = () => {
     )
 }
 
-export default LoadingBank;
+export default LoadingMoney;

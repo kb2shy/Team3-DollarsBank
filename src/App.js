@@ -27,17 +27,12 @@ const useStyles = makeStyles(theme => ({
 
 }))
 
-// Insert URI path for server here
-// eg http://localhost:8080
-
 function App() {
   const classes = useStyles();
 
-  const [user, setUser] = useState(undefined);
-  const [accountDetails, setAccountDetails] = useState({});
+  const [user, setUser] = useState(null);
   const [openSnack, setOpenSnack] = useState(false);
   const [alert, setAlert] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
   const [displayState, setDisplayState] = useState("home");
 
   const loginWithEmailPW = (login) => {
@@ -104,7 +99,7 @@ function App() {
 
   return (
     <Box className={classes.root}>
-      <MenuBar user={user} />
+      <MenuBar user={user} setDisplayState={setDisplayState} setUser={setUser}/>
       <div className={classes.toolbar} />
       <Snackbar open={openSnack} autoHideDuration={6000} onClose={handleSnackClose}>
         <Alert 
@@ -127,6 +122,7 @@ function App() {
       </Snackbar>
       <Box className={classes.displayBox}>
         {display()}
+        {/* <AccountDetails user={user}/> */}
       </Box>
       <Footer />
     </Box>

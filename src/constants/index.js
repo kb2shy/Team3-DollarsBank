@@ -5,58 +5,93 @@ export const USER = {
     firstName: "Chhaian",
     lastName: "Pin",
     email: "test@email.com",
-    password: "1234"
+    password: "1234",
+    createdAt: new Date("2020-08-31T00:00:00.000"),
+    updatedAt: new Date("2020-08-31T00:00:00.000")
 }
 
 export const ACCOUNTS = [
     {
         acctId: "123456789",
         userId: 1,
-        acctType: "checking",
-        balance: 100
+        acctType: "Checking",
+        balance: 0,
+        lastUpdated: new Date("2020-09-14"),
+        createdAt: new Date("2020-08-31"),
     },
     {
         acctId: "012345678",
         userId: 1,
         acctType: "Savings",
-        balance: 10000
+        balance: 0,
+        lastUpdated: new Date("2020-09-14"),
+        createdAt: new Date("2020-08-31"),
     }
 ]
 
-export const TRANSACTIONS1 = [
+export const TRANSACTIONS = [
     {
         transactionId: 300,
-        fromAccountId: "111111111",
-        toAccountId: "123456789",
+        acctId: "123456789",
         userId: 1,
         action: "deposit",
-        amount: 100
+        amount: 100,
+        date: "2020-09-09T09:00:00.000"
     },
     {
         transactionId: 301,
-        fromAccountId: "123456789",
-        toAccountId: "111111111",
+        acctId: "123456789",
         userId: 1,
         action: "withdrawal",
-        amount: 10
+        amount: 10,
+        date: "2020-09-12T16:00:00.000"
     },
-]
-
-export const TRANSACTIONS2 = [
-    {
-        transactionId: 302,
-        fromAccountId: "111111111",
-        toAccountId: "012345678",
-        userId: 1,
-        action: "deposit",
-        amount: 50
-    },
+    // {
+    //     transactionId: 302,
+    //     acctId: "012345678",
+    //     userId: 1,
+    //     action: "deposit",
+    //     amount: 10000,
+    //     date: "2020-09-09T09:00:00.000"
+    // },
+    // {
+    //     transactionId: 303,
+    //     acctId: "012345678",
+    //     userId: 1,
+    //     action: "withdrawal",
+    //     amount: 100,
+    //     date: "2020-09-12T09:00:00.000"
+    // },
     {
         transactionId: 304,
-        fromAccountId: "012345678",
-        toAccountId: "111111111",
+        acctId: "123456789",
+        userId: 1,
+        action: "deposit",
+        amount: 100,
+        date: "2020-09-13T09:00:00.000"
+    },
+    {
+        transactionId: 305,
+        acctId: "123456789",
         userId: 1,
         action: "withdrawal",
-        amount: 100
+        amount: 10,
+        date: "2020-09-12T10:00:00.000"
+    },
+    {
+        transactionId: 306,
+        acctId: "123456789",
+        userId: 1,
+        action: "deposit",
+        amount: 100,
+        date: "2020-09-12T10:10:00.000"
+    },
+    {
+        transactionId: 307,
+        acctId: "123456789",
+        userId: 1,
+        action: "withdrawal",
+        amount: 10,
+        date: "2020-09-13T16:30:00.000"
     }
 ]

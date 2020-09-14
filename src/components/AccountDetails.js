@@ -8,26 +8,28 @@ import { Box, Button } from '@material-ui/core';
 import UserProfile from './UserProfile';
 import AccountDisplay from './AccountDisplay';
 import AccountList from './AccountList';
+import LoadingMoney from './LoadingMoney';
 
 const useStyles = makeStyles(theme => ({
 	accountDetails: {
 		display: "flex",
 		height: "100%",
 		width: "100%",
-		backgroundColor: "green"
+		// backgroundColor: "green"
 	},
 	box1: {
-		backgroundColor: "orange",
+		// backgroundColor: "orange",
 		width: "200px",
 		display: "flex",
 		flexDirection: "column",
 		// justifyContent: "center",
-		padding: "10px"
+		padding: "10px",
+		borderRight: "3px solid black",
 	},
 	box2: {
-		backgroundColor: "yellow",
+		// backgroundColor: "yellow",
 		width: "calc(100% - 200px)",
-		padding: "10px",
+		// padding: "10px",
 	},
 	userOption: {
 		height: "60px",
@@ -49,13 +51,11 @@ const useStyles = makeStyles(theme => ({
 
 const AccountDetails = ({ user }) => {
 
-	console.log("user passed to AcountDetails", user);
+	// console.log("user passed to AcountDetails", user);
 
 	const classes = useStyles();
 
 	const [showAccounts, setShowAccounts] = useState(true);
-	const [showUserProfileDisplay, setShowUserProfileDisplay] = useState(false);
-	const [showAccountDisplay, setShowAccountDisplay] = useState(false);
 	const [activeAccountDisplay, setActiveAccountDisplay] = useState(undefined);
 	const [userAccounts, setUserAccounts] = useState(ACCOUNTS);
 	const [account, setAccount] = useState(undefined);
@@ -80,13 +80,20 @@ const AccountDetails = ({ user }) => {
 			case "user":
 				return <UserProfile user={user} setActiveAccountDisplay={setActiveAccountDisplay}/>
 			case "account":
-				return <AccountDisplay account={account}/>
+				return <AccountDisplay user={user} account={account}/>
+			case "loading":
+				// return setActiveAccountDisplay("account");
+				setTimeout(() => {
+					setActiveAccountDisplay("account");
+				}, 3000);
+				return <LoadingMoney />;
 			default:
 				return null;
 		}
 	}
 
 	return <Box className={classes.accountDetails}>
+
 		<Box className={classes.box1}>
 			<Button
 				variant="outlined"

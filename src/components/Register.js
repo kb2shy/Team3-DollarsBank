@@ -4,18 +4,13 @@ import { Box, Button, Typography, TextField } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   register: {
-    position: "relative",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     alignItems: "center",
     width: "100%",
     height: "100%",
-    // backgroundColor: "aqua"
   },
-  // title: {
-  //   color: theme.palette.secondary.main,
-  // },
   box1: {
     width: "80%",
     height: "100%",
@@ -23,23 +18,18 @@ const useStyles = makeStyles(theme => ({
     flexDirection: "column",
     justifyContent: "space-around",
     alignItems: "center",
-    // backgroundColor: "orange",
   },
   box2: {
     width: "80%",
-    // backgroundColor: "yellow",
     marginTop: "20px",
     display: "flex",
     flexDirection: "column",
-    // justifyContent: "flex-end",
     alignItems: "center",
   },
   button: {
     width: "40%",
-    // margin: "0 auto",
     backgroundColor: theme.palette.secondary.dark,
     color: "#fff",
-    // marginTop: "16px"
   }
 }))
 

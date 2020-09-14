@@ -1,4 +1,5 @@
 import React from 'react';
+import { TRANSACTIONS } from '../constants';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Card, CardContent, Typography } from '@material-ui/core';
 
@@ -23,22 +24,39 @@ const AccountList = ({ accounts, setAccount, setActiveAccountDisplay }) => {
 
     const classes = useStyles();
 
-    console.log(accounts);
-
     const handleAccountSelect = (acct) => {
         setAccount(acct);
-        return setActiveAccountDisplay("account");
+        return setActiveAccountDisplay("loading");
+    }
+
+    const calculateBalance = (data) => {
+
+        let balance = data.balance;
+        const transactions = TRANSACTIONS.filter(transaction => transaction.acctId === data.acctId);
+
+        for (let trans of transactions) {
+            if (trans.action === "deposit") {
+                balance += trans.amount;
+            }
+
+            if (trans.action === "withdrawal") {
+                balance -= trans.amount
+            }
+        }
+
+        return balance.toFixed(2);
     }
 
     return <Box className={classes.accountList}>
         {accounts.map(account => {
             // return console.log(typeof account.acctId);
             const acctNum = "***" + account.acctId.substring(5, 9);
+
             return (
             <Card 
                 key={account.acctId} 
                 className={classes.card}
-                onClick={() => handleAccountSelect(account.acctId)}
+                onClick={() => handleAccountSelect(account)}
                 variant="outlined"
             >
                 <CardContent>
@@ -49,7 +67,7 @@ const AccountList = ({ accounts, setAccount, setActiveAccountDisplay }) => {
                         {`Type: ${account.acctType}`}
                     </Typography>
                     <Typography>
-                        {`Balance: ${account.balance}`}
+                        {`Balance: $` + calculateBalance(account)}
                     </Typography>
                 </CardContent>
             </Card>
