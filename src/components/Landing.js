@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Typography } from "@material-ui/core";
+import axios from "axios";
+import { URI } from '../constants';
 
 // components
 import Register from './Register';
 import Login from './Login';
-import Axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   landing: {
@@ -48,8 +49,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const Landing = (props) => {
-  const { loginWithEmailPW, createAccount, displayAlert } = props;
+const Landing = ({ loginWithEmailPW, createAccount, displayAlert }) => {
 
   const classes = useStyles();
 
@@ -134,14 +134,29 @@ const Landing = (props) => {
         userEmail.length === 0 || 
         userPassword.length === 0 || 
         checkPassword.length === 0) {
-      return props.displayAlert({ severity: "warning", title: "Missing information", msg: "Please fill out all fields."})
+      return displayAlert({ severity: "warning", title: "Missing information", msg: "Please fill out all fields."})
     }
 
     if (userPassword !== checkPassword) {
       console.log("passwords don't match");
       setUserPassword("");
       setCheckPassword("");
-      return props.displayAlert({ severity: "error", title: "Passwords error", msg: "Passwords do not match."});
+      return displayAlert({ severity: "error", title: "Passwords error", msg: "Passwords do not match."});
+    }
+
+    const newUser = {
+      firstName: userFirstName,
+      lastName: userLastName,
+      email: userEmail,
+      password: userPassword
+    }
+
+    try {     
+      axios.post(URI + "/register", newUser)
+        .then(result => console.log(result.data))
+        .catch(error => console.log(error))
+    } catch (error) {
+      
     }
   }
 

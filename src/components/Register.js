@@ -35,12 +35,23 @@ const useStyles = makeStyles(theme => ({
 
 const Register = (props) => {
 
-  const { userFirstName, userLastName, userEmail, userPassword, checkPassword, handleOnChange, handleCreateAccountSubmit } = props;
+  const {
+    handleOnChange,
+    setSelection,
+    clearFields,
+    handleCreateAccountSubmit,
+    userFirstName,
+    userLastName,
+    userEmail,
+    userPassword,
+    checkPassword
+  } = props;
+
   const classes = useStyles();
 
   const handleLoginButton = () => {
-    props.clearFields();
-    props.setSelection("login");
+    clearFields();
+    setSelection("login");
   }
   
   return (
