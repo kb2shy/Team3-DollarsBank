@@ -4,30 +4,32 @@ import { Box, Button, TextField, Typography } from '@material-ui/core';
 
 import { TRANSACTIONS } from '../constants';
 
+import Transaction from './Transaction';
+
 const useStyles = makeStyles(theme => ({
     accountDisplay: {
         width: "100%",
         height: "100%",
-        backgroundColor: "lightgreen"
+        // backgroundColor: "lightgreen"
     },
     title: {
         display: "flex",
         height: "100px",
-        backgroundColor: "white",
+        // backgroundColor: "white",
     },
     acctDetails: {
         display: "flex",
         flexDirection: "column",
         width: "30%",
-        backgroundColor: "lightgrey",
+        // backgroundColor: "lightgrey",
         
     },
     acctOptions: {
         display: "flex",
-        justifyItems: "space-between",
+        // justifyItems: "space-between",
         width: "70%",
-        justifyContent: "space-around",
-        backgroundColor: "lightblue",
+        // justifyContent: "space-around",
+        // backgroundColor: "lightblue",
         fontSize: "1.2rem",
         color: "white"
     },
@@ -61,6 +63,15 @@ const useStyles = makeStyles(theme => ({
         marginTop: "auto",
         width: "100%",
         // height: "40%"
+    },
+    transactionList: {
+        display: "flex",
+        flexDirection: "column",
+        width: "100%",
+        marginTop: "20px",
+        // border: "5px solid black",
+        height: "calc(100% - 125px)",
+        overflow: "auto"
     }
 }))
 
@@ -78,9 +89,17 @@ const AccountDisplay = ({ account }) => {
     useEffect(() => {
         if (transactions.length === 0) {
             const trans = TRANSACTIONS.filter(transaction => transaction.acctId === account.acctId);
-            const ab = trans.reduce((t, val) => t.amount + val.amount) + account.balance;
-            // console.log(trans);
-            setTransactions(trans);
+            let ab = account.balance;
+            for (let t of trans) {
+                t.date = new Date(t.date);
+                if (t.action === "deposit") {
+                    ab += t.amount;
+                } else {
+                    ab -= t.amount;
+                }
+            }
+            
+            setTransactions(trans.sort((a, b) => b.date - a.date));
             setAccountBalance(ab);
         }
 
@@ -173,6 +192,13 @@ const AccountDisplay = ({ account }) => {
                     />
                 </Box>
             </Box>
+        </Box>
+
+        {/* Transaction List */}
+        <Box className={classes.transactionList}>
+            {transactions.map(transaction => {
+                return <Transaction key={transaction.transactionId} transaction={transaction}/>
+            }).sort((a, b) => a.date > b.date)}
         </Box>
     </Box>
 }

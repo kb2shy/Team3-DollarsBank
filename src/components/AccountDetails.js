@@ -81,6 +81,7 @@ const AccountDetails = ({ user }) => {
 			case "account":
 				return <AccountDisplay account={account}/>
 			case "loading":
+				return setActiveAccountDisplay("account");
 				setTimeout(() => {
 					setActiveAccountDisplay("account");
 				}, 3000);

@@ -29,9 +29,22 @@ const AccountList = ({ accounts, setAccount, setActiveAccountDisplay }) => {
         return setActiveAccountDisplay("loading");
     }
 
-    const calculateBalance = (account) => {
-        const transactions = TRANSACTIONS.filter(transaction => transaction.acctId === account.acctId);
-        return transactions.reduce((transaction, value) => transaction.amount + value.amount) + account.balance;  
+    const calculateBalance = (data) => {
+
+        let balance = data.balance;
+        const transactions = TRANSACTIONS.filter(transaction => transaction.acctId === data.acctId);
+
+        for (let trans of transactions) {
+            if (trans.action === "deposit") {
+                balance += trans.amount;
+            }
+
+            if (trans.action === "withdrawal") {
+                balance -= trans.amount
+            }
+        }
+
+        return balance;
     }
 
     return <Box className={classes.accountList}>

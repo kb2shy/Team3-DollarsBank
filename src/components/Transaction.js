@@ -3,6 +3,21 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Box, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
+    transaction: {
+        width: "98%",
+        height: "100px",
+        border: "2px solid black",
+        marginBottom: "6px",
+        // ":not(:last-child)": {
+        //     marginBottom: "10px"
+        // }
+    },
+    green: {
+        color: "green"
+    },
+    red: {
+        color: "red"
+    }
 
 }))
 
@@ -10,9 +25,15 @@ const Transaction = ({ transaction }) => {
 
     const classes = useStyles();
 
-    console.log(transaction);
-    return <Box>
-        <Typography>Transaction component</Typography>
+    const date = new Date(transaction.date);
+    
+    return <Box className={classes.transaction}>
+        <Typography>{`Transaction Date: ${date.toLocaleDateString()} ${date.toLocaleTimeString()}`}</Typography>
+        <Typography>{`Type: ${transaction.action}`}</Typography>
+        {transaction.action === "deposit" ?
+            <Typography className={classes.green}>+${transaction.amount}</Typography> :
+            <Typography className={classes.red}>-${transaction.amount}</Typography>
+        }
     </Box>
 }
 
