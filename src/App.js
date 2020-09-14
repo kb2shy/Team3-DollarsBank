@@ -27,9 +27,6 @@ const useStyles = makeStyles(theme => ({
 
 }))
 
-// Insert URI path for server here
-// eg http://localhost:8080
-
 function App() {
   const classes = useStyles();
 
@@ -124,8 +121,8 @@ function App() {
         </Alert>
       </Snackbar>
       <Box className={classes.displayBox}>
-        {/* {display()} */}
-        <AccountDetails user={user}/>
+        {display()}
+        {/* <AccountDetails user={user}/> */}
       </Box>
       <Footer />
     </Box>

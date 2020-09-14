@@ -13,13 +13,17 @@ export const ACCOUNTS = [
         acctId: "123456789",
         userId: 1,
         acctType: "Checking",
-        balance: 0
+        balance: 0,
+        lastUpdated: new Date("2020-09-14"),
+        createdAt: new Date("2020-08-31"),
     },
     {
         acctId: "012345678",
         userId: 1,
         acctType: "Savings",
-        balance: 0
+        balance: 0,
+        lastUpdated: new Date("2020-09-14"),
+        createdAt: new Date("2020-08-31"),
     }
 ]
 
@@ -40,22 +44,22 @@ export const TRANSACTIONS = [
         amount: 10,
         date: "2020-09-12T16:00:00.000"
     },
-    {
-        transactionId: 302,
-        acctId: "012345678",
-        userId: 1,
-        action: "deposit",
-        amount: 10000,
-        date: "2020-09-09T09:00:00.000"
-    },
-    {
-        transactionId: 303,
-        acctId: "012345678",
-        userId: 1,
-        action: "withdrawal",
-        amount: 100,
-        date: "2020-09-12T09:00:00.000"
-    },
+    // {
+    //     transactionId: 302,
+    //     acctId: "012345678",
+    //     userId: 1,
+    //     action: "deposit",
+    //     amount: 10000,
+    //     date: "2020-09-09T09:00:00.000"
+    // },
+    // {
+    //     transactionId: 303,
+    //     acctId: "012345678",
+    //     userId: 1,
+    //     action: "withdrawal",
+    //     amount: 100,
+    //     date: "2020-09-12T09:00:00.000"
+    // },
     {
         transactionId: 304,
         acctId: "123456789",

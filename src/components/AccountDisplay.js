@@ -10,6 +10,7 @@ const useStyles = makeStyles(theme => ({
     accountDisplay: {
         width: "100%",
         height: "100%",
+        padding: "10px"
         // backgroundColor: "lightgreen"
     },
     title: {
@@ -75,14 +76,14 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-const AccountDisplay = ({ account }) => {
+const AccountDisplay = ({ account, user }) => {
 
     // console.log("account:", account);
     const classes = useStyles();
 
     const [transactions, setTransactions] = useState([]);
-    const [deposit, setDeposit] = useState(0);
-    const [withdrawal, setWithdrawal] = useState(0);
+    const [deposit, setDeposit] = useState("");
+    const [withdrawal, setWithdrawal] = useState("");
     const [transfer, setTransfer] = useState({});
     const [accountBalance, setAccountBalance] = useState(0);
 
@@ -100,37 +101,60 @@ const AccountDisplay = ({ account }) => {
             }
             
             setTransactions(trans.sort((a, b) => b.date - a.date));
-            setAccountBalance(ab);
+            setAccountBalance(ab.toFixed(2));
         }
 
     }, []);
 
     const handleDepositButton = (e) => {
         e.preventDefault();
+        console.log(typeof deposit);
+        console.log(typeof accountBalance);
 
-        if (deposit <= 0) return;
+        const newTransaction = {
+            transactionId: transactions[0].transactionId + 1,
+            userId: user.userId,
+            action: "deposit",
+            amount: deposit,
+            date: new Date(),
+        }
 
-        setAccountBalance(accountBalance + deposit);
-        setDeposit(0);
+        if (deposit <= 0) {
+            return setDeposit(0);
+        }
+
+        setTransactions([newTransaction, ...transactions])
+        setAccountBalance(Number(accountBalance) + Number(deposit.toFixed(2)));
+        setDeposit("");
     }
 
     const handleWithdrawalButton = (e) => {
         e.preventDefault();
 
-        if (withdrawal <= 0 || withdrawal > accountBalance) return;
+        const newTransaction = {
+            transactionId: transactions[0].transactionId + 1,
+            userId: user.userId,
+            action: "withdrawal",
+            amount: withdrawal,
+            date: new Date(),
+        }
 
-        setAccountBalance(accountBalance - withdrawal);
-        setWithdrawal(0);
+        if (withdrawal <= 0 || accountBalance < 0) return;
+
+        setTransactions([newTransaction, ...transactions])
+        setAccountBalance(Number(accountBalance) - Number(withdrawal.toFixed(2)));
+        setWithdrawal("");
     }
 
     // console.log(transactions)
+    // console.log(`accountBalance: ${accountBalance}`, `typeof accountBalance: ${typeof accountBalance}`);
     return <Box className={classes.accountDisplay}>
         <Box className={classes.title}>
             <Box className={classes.acctDetails}>
                 <Typography variant="h4">{account.acctType}</Typography>
                 {accountBalance >= 0 ?
-                    <Typography variant="h5" className={classes.balanceGreen}>{`Balance: ${accountBalance}`}</Typography> :
-                    <Typography variant="h5" className={classes.balanceRed}>{`Balance: ${accountBalance}`}</Typography>
+                    <Typography variant="h5" className={classes.balanceGreen}>{`Balance: $${Number(accountBalance).toFixed(2)}`}</Typography> :
+                    <Typography variant="h5" className={classes.balanceRed}>{`Balance: $${Number(accountBalance).toFixed(2)}`}</Typography>
                 }
             </Box>
             <Box className={classes.acctOptions}>
@@ -150,11 +174,12 @@ const AccountDisplay = ({ account }) => {
                         size="small"
                         className={classes.input}
                         value={deposit}
-                        onChange={(e) => setDeposit(e.target.value)}
+                        onChange={(e) => setDeposit(Number(e.target.value))}
                     />
                 </Box>
                 <Box className={classes.acctOptions__input}>
                     <Button 
+                        disabled={accountBalance < 0}
                         variant="contained" 
                         className={classes.btn2}
                         onClick={e => handleWithdrawalButton(e)}
@@ -169,7 +194,7 @@ const AccountDisplay = ({ account }) => {
                         size="small"
                         className={classes.input}
                         value={withdrawal}
-                        onChange={(e) => setWithdrawal(e.target.value)}
+                        onChange={(e) => setWithdrawal(Number(e.target.value))}
                     />
                 </Box>
                 <Box className={classes.acctOptions__input}>

@@ -44,7 +44,7 @@ const AccountList = ({ accounts, setAccount, setActiveAccountDisplay }) => {
             }
         }
 
-        return balance;
+        return balance.toFixed(2);
     }
 
     return <Box className={classes.accountList}>
@@ -67,7 +67,7 @@ const AccountList = ({ accounts, setAccount, setActiveAccountDisplay }) => {
                         {`Type: ${account.acctType}`}
                     </Typography>
                     <Typography>
-                        {`Balance: ` + calculateBalance(account)}
+                        {`Balance: $` + calculateBalance(account)}
                     </Typography>
                 </CardContent>
             </Card>

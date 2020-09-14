@@ -15,20 +15,21 @@ const useStyles = makeStyles(theme => ({
 		display: "flex",
 		height: "100%",
 		width: "100%",
-		backgroundColor: "green"
+		// backgroundColor: "green"
 	},
 	box1: {
-		backgroundColor: "orange",
+		// backgroundColor: "orange",
 		width: "200px",
 		display: "flex",
 		flexDirection: "column",
 		// justifyContent: "center",
-		padding: "10px"
+		padding: "10px",
+		borderRight: "3px solid black",
 	},
 	box2: {
-		backgroundColor: "yellow",
+		// backgroundColor: "yellow",
 		width: "calc(100% - 200px)",
-		padding: "10px",
+		// padding: "10px",
 	},
 	userOption: {
 		height: "60px",
@@ -79,9 +80,9 @@ const AccountDetails = ({ user }) => {
 			case "user":
 				return <UserProfile user={user} setActiveAccountDisplay={setActiveAccountDisplay}/>
 			case "account":
-				return <AccountDisplay account={account}/>
+				return <AccountDisplay user={user} account={account}/>
 			case "loading":
-				return setActiveAccountDisplay("account");
+				// return setActiveAccountDisplay("account");
 				setTimeout(() => {
 					setActiveAccountDisplay("account");
 				}, 3000);
