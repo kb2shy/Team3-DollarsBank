@@ -129,7 +129,6 @@ const Landing = ({ loginWithEmailPW, createUser, createAccount, displayAlert }) 
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
-    console.log("in handleLoginSubmit")
     
     const loginUser = {
       email: userEmail,

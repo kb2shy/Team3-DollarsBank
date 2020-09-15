@@ -7,9 +7,9 @@ const useStyles = makeStyles(theme => ({
     accountList: {
         width: "100%",
         height: "100%",
-        backgroundColor: "lightgrey"
     },
     card: {
+        backgroundColor: "lightgrey",
         width: "100%",
         ':not(:first-child)': {
             marginTop: "5px"
@@ -49,12 +49,12 @@ const AccountList = ({ accounts, setAccount, setActiveAccountDisplay }) => {
 
     return <Box className={classes.accountList}>
         {accounts.map(account => {
-            // return console.log(typeof account.acctId);
-            const acctNum = "***" + account.acctId.substring(5, 9);
+            // return console.log(typeof String(account.accountId));
+            const acctNum = "***" + String(account.accountId).substring(5, 9);
 
             return (
             <Card 
-                key={account.acctId} 
+                key={account.accountId} 
                 className={classes.card}
                 onClick={() => handleAccountSelect(account)}
                 variant="outlined"
@@ -64,7 +64,7 @@ const AccountList = ({ accounts, setAccount, setActiveAccountDisplay }) => {
                         {`Acct#: ${acctNum}`}
                     </Typography>
                     <Typography>
-                        {`Type: ${account.acctType}`}
+                        {`Type: ${account.accountType}`}
                     </Typography>
                     <Typography>
                         {`Balance: $` + calculateBalance(account)}

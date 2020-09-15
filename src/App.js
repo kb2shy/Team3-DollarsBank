@@ -62,9 +62,7 @@ function App() {
     try {
       axios.post(`${URI}/register`, data)
       .then(result => {
-        // console.log(result.data)
         setUser(result.data);
-        console.log("User created and stored in state");
       })
       .catch(error => console.log(error))      
     } catch (error) {

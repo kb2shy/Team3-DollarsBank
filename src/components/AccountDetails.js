@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { URI, ACCOUNTS } from '../constants';
+import { URI } from '../constants';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Button } from '@material-ui/core';
 
@@ -45,7 +45,7 @@ const useStyles = makeStyles(theme => ({
 	accountList: {
 		margin: "10px 0px",
 		// border: "3px solid black",
-		minHeight: "150px"
+		// minHeight: "150px"
 	}
 }));
 
@@ -57,12 +57,12 @@ const AccountDetails = ({ user }) => {
 
 	const [showAccounts, setShowAccounts] = useState(true);
 	const [activeAccountDisplay, setActiveAccountDisplay] = useState(undefined);
-	const [userAccounts, setUserAccounts] = useState(ACCOUNTS);
+	const [userAccounts, setUserAccounts] = useState([]);
 	const [account, setAccount] = useState(undefined);
 
 	useEffect(() => {
 		try {
-			axios.get(`${URI}/accounts/${user.id}`)
+			axios.get(`${URI}/account/${user.userId}`)
 				.then(result => {
 					console.log(result.data);
 					setUserAccounts(result.data);
