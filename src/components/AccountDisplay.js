@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Button, TextField, Typography } from '@material-ui/core';
 
-import { TRANSACTIONS } from '../constants';
+import { URI } from '../constants';
+import axios from 'axios';
 
 import Transaction from './Transaction';
 
@@ -76,7 +77,7 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-const AccountDisplay = ({ account, user }) => {
+const AccountDisplay = ({ account, user, updateAccount }) => {
 
     // console.log("account:", account);
     const classes = useStyles();
@@ -85,49 +86,54 @@ const AccountDisplay = ({ account, user }) => {
     const [deposit, setDeposit] = useState("");
     const [withdrawal, setWithdrawal] = useState("");
     const [transfer, setTransfer] = useState({});
-    const [accountBalance, setAccountBalance] = useState(0);
 
     useEffect(() => {
-        if (transactions.length === 0) {
-            const trans = TRANSACTIONS.filter(transaction => transaction.acctId === account.acctId);
-            let ab = account.balance;
-            for (let t of trans) {
-                t.date = new Date(t.date);
-                if (t.action === "deposit") {
-                    ab += t.amount;
-                } else {
-                    ab -= t.amount;
-                }
-            }
-            
-            setTransactions(trans.sort((a, b) => b.date - a.date));
-            setAccountBalance(ab.toFixed(2));
-        }
+        getTransactions()
 
     }, []);
 
+    const getTransactions = () => {
+        try {
+            axios.get(`${URI}/transaction/${account.accountId}`)
+                .then(result => {
+                    setTransactions(result.data.sort((a,b) => a.createdAt < b.createdAt ? 1 : -1));
+                })
+                .catch(error => console.log(error));
+        } catch (error) {
+            
+        }
+    }
+
+    const createTransaction = (trans) => {
+
+		try {
+			axios.post(`${URI}/transaction`, trans)
+				.then(result => {
+                    updateAccount();
+                    setTransactions([result.data, ...transactions])
+				})
+				.catch(error => console.log(error));
+		} catch (error) {
+			
+		}
+	}
+
     const handleDepositButton = (e) => {
         e.preventDefault();
-
-        let transId = 6000;
-        if (transactions.length > 0) {
-            transId = transactions[0].transactionId;
-        }
-
-        const newTransaction = {
-            transactionId: transId + 1,
-            userId: user.userId,
-            action: "deposit",
-            amount: deposit,
-            date: new Date(),
-        }
 
         if (deposit <= 0) {
             return setDeposit(0);
         }
 
-        setTransactions([newTransaction, ...transactions])
-        setAccountBalance(Number(accountBalance) + Number(deposit.toFixed(2)));
+        const newTransaction = {
+            accountId: account.accountId,
+            userId: user.userId,
+            action: "deposit",
+            amount: deposit,
+            toAccountId: null,
+        }
+
+        createTransaction(newTransaction);
         setDeposit("");
     }
 
@@ -142,10 +148,9 @@ const AccountDisplay = ({ account, user }) => {
             date: new Date(),
         }
 
-        if (withdrawal <= 0 || accountBalance <= 0) return;
+        if (withdrawal <= 0 || account.balance <= 0) return;
 
-        setTransactions([newTransaction, ...transactions])
-        setAccountBalance(Number(accountBalance) - Number(withdrawal.toFixed(2)));
+        setTransactions([newTransaction, ...transactions]);
         setWithdrawal("");
     }
 
@@ -154,10 +159,10 @@ const AccountDisplay = ({ account, user }) => {
     return <Box className={classes.accountDisplay}>
         <Box className={classes.title}>
             <Box className={classes.acctDetails}>
-                <Typography variant="h4">{account.acctType}</Typography>
-                {accountBalance >= 0 ?
-                    <Typography variant="h5" className={classes.balanceGreen}>{`Balance: $${Number(accountBalance).toFixed(2)}`}</Typography> :
-                    <Typography variant="h5" className={classes.balanceRed}>{`Balance: $${Number(accountBalance).toFixed(2)}`}</Typography>
+                <Typography variant="h4">{account.accountType}</Typography>
+                {account.balance >= 0 ?
+                    <Typography variant="h5" className={classes.balanceGreen}>{`Balance: $${Number(account.balance).toFixed(2)}`}</Typography> :
+                    <Typography variant="h5" className={classes.balanceRed}>{`Balance: $${Number(account.balance).toFixed(2)}`}</Typography>
                 }
             </Box>
             <Box className={classes.acctOptions}>
@@ -182,7 +187,7 @@ const AccountDisplay = ({ account, user }) => {
                 </Box>
                 <Box className={classes.acctOptions__input}>
                     <Button 
-                        disabled={accountBalance <= 0}
+                        disabled={account.balance <= 0}
                         variant="contained" 
                         className={classes.btn2}
                         onClick={e => handleWithdrawalButton(e)}
@@ -224,8 +229,9 @@ const AccountDisplay = ({ account, user }) => {
 
         {/* Transaction List */}
         <Box className={classes.transactionList}>
+            <Typography variant="h4">Transaction History</Typography>
             {transactions.map(transaction => {
-                return <Transaction key={transaction.transactionId} transaction={transaction}/>
+                return <Transaction transaction={transaction} key={transaction.transactionId}/>
             }).sort((a, b) => a.date > b.date)}
         </Box>
     </Box>

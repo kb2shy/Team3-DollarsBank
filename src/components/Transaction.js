@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Typography } from '@material-ui/core';
+import moment from 'moment';
 
 const useStyles = makeStyles(theme => ({
     transaction: {
@@ -26,10 +27,10 @@ const Transaction = ({ transaction }) => {
 
     const classes = useStyles();
 
-    const date = new Date(transaction.date);
+    const date = new Date(transaction.createdAt);
     
     return <Box className={classes.transaction}>
-        <Typography>{`Transaction Date: ${date.toLocaleDateString()} ${date.toLocaleTimeString()}`}</Typography>
+        <Typography>{`Date: ${moment(date).format("MMMM DD, YYYY hh:mm:ss a")}`}</Typography>
         <Typography>{`Type: ${transaction.action}`}</Typography>
         {transaction.action === "deposit" ?
             <Typography className={classes.green}>+${Number(transaction.amount).toFixed(2)}</Typography> :
