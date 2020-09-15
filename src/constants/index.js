@@ -1,13 +1,11 @@
 export const URI = "http://localhost:8080";
 
 export const USER = {
-    userId: 1,
-    firstName: "Chhaian",
-    lastName: "Pin",
-    email: "test@email.com",
-    password: "1234",
-    createdAt: new Date("2020-08-31T00:00:00.000"),
-    updatedAt: new Date("2020-08-31T00:00:00.000")
+    userId: 14, 
+    firstName: "t6", 
+    lastName: "t6", 
+    email: "t6@email.com", 
+    password: ""
 }
 
 export const ACCOUNTS = [

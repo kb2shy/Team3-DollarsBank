@@ -1,5 +1,5 @@
 import React from 'react';
-import { TRANSACTIONS } from '../constants';
+// import { TRANSACTIONS } from '../constants';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Card, CardContent, Typography } from '@material-ui/core';
 
@@ -29,23 +29,23 @@ const AccountList = ({ accounts, setAccount, setActiveAccountDisplay }) => {
         return setActiveAccountDisplay("loading");
     }
 
-    const calculateBalance = (data) => {
+    // const calculateBalance = (data) => {
 
-        let balance = data.balance;
-        const transactions = TRANSACTIONS.filter(transaction => transaction.acctId === data.acctId);
+    //     let balance = data.balance;
+    //     const transactions = TRANSACTIONS.filter(transaction => transaction.acctId === data.acctId);
 
-        for (let trans of transactions) {
-            if (trans.action === "deposit") {
-                balance += trans.amount;
-            }
+    //     for (let trans of transactions) {
+    //         if (trans.action === "deposit") {
+    //             balance += trans.amount;
+    //         }
 
-            if (trans.action === "withdrawal") {
-                balance -= trans.amount
-            }
-        }
+    //         if (trans.action === "withdrawal") {
+    //             balance -= trans.amount
+    //         }
+    //     }
 
-        return balance.toFixed(2);
-    }
+    //     return balance.toFixed(2);
+    // }
 
     return <Box className={classes.accountList}>
         {accounts.map(account => {
@@ -67,7 +67,7 @@ const AccountList = ({ accounts, setAccount, setActiveAccountDisplay }) => {
                         {`Type: ${account.accountType}`}
                     </Typography>
                     <Typography>
-                        {`Balance: $` + calculateBalance(account)}
+                        {`Balance: $${Number(account.balance).toFixed(2)}`}
                     </Typography>
                 </CardContent>
             </Card>

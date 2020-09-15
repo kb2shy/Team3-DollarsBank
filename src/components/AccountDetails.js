@@ -61,10 +61,13 @@ const AccountDetails = ({ user }) => {
 	const [account, setAccount] = useState(undefined);
 
 	useEffect(() => {
+		getAllAccountsInfo();
+	}, [])
+
+	const getAllAccountsInfo = () => {
 		try {
 			axios.get(`${URI}/account/${user.userId}`)
 				.then(result => {
-					console.log(result.data);
 					setUserAccounts(result.data);
 				})
 		} catch (error) {
@@ -73,14 +76,27 @@ const AccountDetails = ({ user }) => {
 		return () => {
 			
 		}
-	}, [])
-	
+	}
+
+	const updateAccount = () => {
+		getAllAccountsInfo();
+
+		try {
+			axios.get(`${URI}/account/home/${account.accountId}`)
+			.then(result => {
+				setAccount(result.data);
+			})
+		} catch (error) {
+			
+		}
+	}
+
 	const displayADSelection = () => {
 		switch (activeAccountDisplay) {
 			case "user":
 				return <UserProfile user={user} setActiveAccountDisplay={setActiveAccountDisplay}/>
 			case "account":
-				return <AccountDisplay user={user} account={account}/>
+				return <AccountDisplay user={user} account={account} updateAccount={updateAccount}/>
 			case "loading":
 				// return setActiveAccountDisplay("account");
 				setTimeout(() => {

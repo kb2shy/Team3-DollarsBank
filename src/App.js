@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
-import { URI } from './constants';
+import { URI, USER } from './constants';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import { Snackbar } from '@material-ui/core';
@@ -30,13 +30,21 @@ const useStyles = makeStyles(theme => ({
 function App() {
   const classes = useStyles();
 
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(USER);
   const [openSnack, setOpenSnack] = useState(false);
   const [alert, setAlert] = useState({});
-  const [displayState, setDisplayState] = useState("home");
+  const [displayState, setDisplayState] = useState("loggedIn");
+
+  useEffect(() => {
+    axios.post(URI + "/login", USER)
+      .then(result => {
+        setDisplayState("loggedIn");
+        setUser(result.data);
+      })
+  }, [])
 
   const loginWithEmailPW = (login) => {
-    console.log("inside loginWithEmailPW", login);
+    // console.log("inside loginWithEmailPW", login);
     // POST API to log in user
     try {
       axios.post(URI + "/login", login)
