@@ -140,17 +140,17 @@ const AccountDisplay = ({ account, user, updateAccount }) => {
     const handleWithdrawalButton = (e) => {
         e.preventDefault();
 
-        const newTransaction = {
-            transactionId: transactions[0].transactionId + 1,
-            userId: user.userId,
-            action: "withdrawal",
-            amount: withdrawal,
-            date: new Date(),
-        }
-
         if (withdrawal <= 0 || account.balance <= 0) return;
 
-        setTransactions([newTransaction, ...transactions]);
+        const newTransaction = {
+            accountId: account.accountId,
+            userId: user.userId,
+            action: "withdraw",
+            amount: withdrawal,
+            toAccountId: null,
+        }
+
+        createTransaction(newTransaction);
         setWithdrawal("");
     }
 
