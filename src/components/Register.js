@@ -39,7 +39,7 @@ const Register = (props) => {
     handleOnChange,
     setSelection,
     clearFields,
-    handleCreateAccountSubmit,
+    handleCreateUserSubmit,
     userFirstName,
     userLastName,
     userEmail,
@@ -53,12 +53,17 @@ const Register = (props) => {
     clearFields();
     setSelection("login");
   }
+
+  const handleNextButton = (e) => {
+    setSelection("register2");
+    return handleCreateUserSubmit(e);
+  }
   
   return (
     <Box className={classes.register}>
       <Box className={classes.box1}>
         <Typography variant="h5" className={classes.title}>
-          Register
+          Register: Step 1
         </Typography>
         <TextField
           required
@@ -111,7 +116,7 @@ const Register = (props) => {
           onChange={handleOnChange("checkPassword")}
           value={checkPassword}
         />
-        <Button variant="contained" className={classes.button} onClick={(e) => handleCreateAccountSubmit(e)}>Create Account</Button>
+        <Button variant="contained" className={classes.button} onClick={handleNextButton}>Next</Button>
       </Box>
 
       <Box className={classes.box2}>

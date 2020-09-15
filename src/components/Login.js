@@ -10,18 +10,13 @@ const useStyles = makeStyles(theme => ({
     alignItems: "center",
     width: "100%",
     height: "100%",
-    // backgroundColor: "aqua",
     position: "relative"
   },
-  // title: {
-  //   color: theme.palette.secondary.main,
-  // },
   button: {
     width: "40%",
     margin: "0 auto",
     backgroundColor: theme.palette.secondary.dark,
     color: "#fff",
-    // marginTop: "16px"
   },
   box1: {
     width: "80%",
@@ -30,11 +25,9 @@ const useStyles = makeStyles(theme => ({
     flexDirection: "column",
     justifyContent: "space-around",
     alignItems: "center",
-    // backgroundColor: "orange",
   },
   box2: {
     width: "80%",
-    // backgroundColor: "yellow",
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-around",
