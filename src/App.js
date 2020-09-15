@@ -30,18 +30,18 @@ const useStyles = makeStyles(theme => ({
 function App() {
   const classes = useStyles();
 
-  const [user, setUser] = useState(USER);
+  const [user, setUser] = useState({});
   const [openSnack, setOpenSnack] = useState(false);
   const [alert, setAlert] = useState({});
-  const [displayState, setDisplayState] = useState("loggedIn");
+  const [displayState, setDisplayState] = useState("home");
 
-  useEffect(() => {
-    axios.post(URI + "/login", USER)
-      .then(result => {
-        setDisplayState("loggedIn");
-        setUser(result.data);
-      })
-  }, [])
+  // useEffect(() => {
+  //   axios.post(URI + "/login", user)
+  //     .then(result => {
+  //       setDisplayState("loggedIn");
+  //       setUser(result.data);
+  //     })
+  // }, [])
 
   const loginWithEmailPW = (login) => {
     // console.log("inside loginWithEmailPW", login);
