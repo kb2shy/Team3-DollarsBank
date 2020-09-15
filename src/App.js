@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './App.css';
-import { URI, USER } from './constants';
+import { URI } from './constants';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import { Snackbar } from '@material-ui/core';
@@ -36,36 +36,29 @@ function App() {
   const [displayState, setDisplayState] = useState("home");
 
   const loginWithEmailPW = (login) => {
-    
-    if (login.email === USER.email && login.password === USER.password) {
-      
-      setDisplayState("loading");
-      setTimeout(() => {
-        setDisplayState("loggedIn");
-        return setUser(USER);
-      }, 3000)
-    }
-
-    /* axios.post(URI + "/user", login)
+    console.log("inside loginWithEmailPW", login);
+    // POST API to log in user
+    try {
+      axios.post(URI + "/login", login)
       .then(result => {
-
-        const user = {
-
-        }
-        // console.log(result.data)
-
-        // setUser here
-        setUser(user)
+        setDisplayState("loading");
+        setUser(result.data);
+        setTimeout(() => {
+          setDisplayState("loggedIn")
+        }, 3000)
       })
       .catch(error => {
         console.log(error)
 
         // set up something to notify user of error
-      }) */
+      })
+    } catch (error) {
+      
+    }
   }
 
   const createUser = (data) => {
-    // all POST API to create User
+    // POST API to create User
     try {
       axios.post(`${URI}/register`, data)
       .then(result => {

@@ -52,7 +52,7 @@ const Landing = ({ loginWithEmailPW, createUser, createAccount, displayAlert }) 
 
   const classes = useStyles();
 
-  const [selection, setSelection] = useState("register");
+  const [selection, setSelection] = useState("home");
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
@@ -94,7 +94,7 @@ const Landing = ({ loginWithEmailPW, createUser, createAccount, displayAlert }) 
 
   const displaySelection = () => {
     switch(selection) {
-      case "login":
+      case "home":
         return <Login
         userEmail={userEmail}
         userPassword={userPassword}
@@ -122,15 +122,14 @@ const Landing = ({ loginWithEmailPW, createUser, createAccount, displayAlert }) 
           initialTransaction={initialTransaction}
           handleCreateAccountSubmit={handleCreateAccountSubmit} />
       default:
-        return <Login
-        userEmail={userEmail}
-        userPassword={userPassword}
-        handleOnChange={handleOnChange} />;
+        setSelection("home");
+        return;
     }
   }
 
   const handleLoginSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
+    console.log("in handleLoginSubmit")
     
     const loginUser = {
       email: userEmail,
